@@ -5,5 +5,5 @@
 
 ## 1.环境配置 :wrench:  
 
-这个env有四个方法
+openlockenv 环境
 
