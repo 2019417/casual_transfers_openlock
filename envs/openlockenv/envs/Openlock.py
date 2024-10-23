@@ -10,9 +10,11 @@ class OpenlockEnv(gym.Env):
     def __init__(self, size=6, pattern='CC3', max_step=3, seed=0):
         ''''
             size: number of lever >= 6
-            pattern: the pattern of solutions: CC3 CE3 CC4 CE4    
-
+            pattern: the pattern of solutions: [CC3|CE3|CC4|CE4]
+            
             OpenLock Environment
+            
+            env.get_solution() get the solution of the environment
         '''
         super().__init__()
         self.__size = size if size >= 6 else 6
@@ -31,8 +33,22 @@ class OpenlockEnv(gym.Env):
         self.action_space = spaces.Discrete(size+1)
         self.observation_space = spaces.MultiBinary(size+1)
     
-    
+    def get_solution(self):
+        """get the solution of the environment
+        Returns:
+            List[Str]: solution paths,the solution is randomly generated,
+                for example: ['12', '13'] for CC3
+                             ['21', '31'] for CE3
+                             ['12', '13', '14'] for CC4
+                             ['21', '31', '41'] for CE4      
+        """
+        return self.__solutions
+         
     def step(self, action: int):
+        '''
+            action: 0-5 拉对应的拉杆, 6 开门
+            每次step 都会计数
+        '''
         if (action == self.__size and self.__check_door()):
             self.__state[action] = 1
         else:
@@ -72,7 +88,7 @@ class OpenlockEnv(gym.Env):
 
     # unfinished
     def __get_info(self):
-        return 'unfinished info'
+        return {"desc":'unfinished info',"solution":self.get_solution()}
 
     def __check_door(self):
         for solution in self.__solutions:
@@ -101,12 +117,14 @@ class OpenlockEnv(gym.Env):
         else: 
             return False
                 
-    def reset(self, **karg):
-        self.__seed = karg['seed'] if 'seed' in karg else self.__seed
+    def reset(self, seed = None, options = None):
+        super().reset(seed=seed, options=options)
+        self.__seed = seed if seed != None else self.__seed
         self.__step = 0
         self.__trace = ''
         self.__state = [0 for e in range(self.__size+1)]
         self.__solutions = self.__sample_solution(self.__pattern)
+        return self.__get_obs(),self.__get_info()
 
     def render(self):
         # TODO
