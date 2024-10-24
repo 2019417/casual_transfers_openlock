@@ -5,8 +5,10 @@
 
 ## 1.环境配置 :wrench:  
 
+先安装包
 ```bash
-pip install openlockenv-0.0.1-py3-none-any.whl
+pip install -r requirements.txt
+pip install openlockenv-0.0.2-py3-none-any.whl
 ```
 
 
@@ -31,5 +33,4 @@ for e in range(episode):
     episode_over = terminated or truncated
 
 env.close()
-
 ```
