@@ -66,16 +66,17 @@ class OpenlockEnv(gym.Env):
             terminated (bool): whether the episode is finished
             info (Dict): the information of the environment
         """
-        if (action == self.__size and self.__check_door()):
-            self.__state[action] = 1
+        if (action == self.__size):
+            if(self.__check_door()):
+                self.__state[action] = 1
         else:
-            self.__state[action] = 0
+            self.__state[action] = 1
 
         # add step
         self.__step += 1
         # add trace
         self.__trace = self.__trace + str(action)
-        return self.__get_obs(), self.__get_reward(action), self.__truncated(), self.__terminated(), self.__get_info()
+        return self.__get_obs(), self.__get_reward(action), self.__terminated(),self.__truncated(), self.__get_info()
 
     def __sample_solution(self, pattern):
         """sample the solution of the environment
@@ -110,16 +111,12 @@ class OpenlockEnv(gym.Env):
         return {"desc":'unfinished info',"solution":self.get_solution()}
 
     def __check_door(self):
-        for solution in self.__solutions:
-            if (solution in self.__trace):
-                return True
-        return False
+        return any(solution in self.__trace for solution in self.__solutions)
+
 
     def __get_obs(self):
         solution_paths = set(''.join(self.__solutions))
-        return tuple({'color': 'grey' if str(x) in solution_paths else 'white', 
-                      'state':np.int64(self.__state[x])} 
-                     for x in range(self.__size)) + \
+        return tuple({'color': 'grey' if str(x) in solution_paths else 'white' , 'state':np.int64(self.__state[x])} for x in range(self.__size))+ \
                 ({'door':np.int64(self.__state[self.__size]),'state':np.int64(self.__state[self.__size])},)
 
     def __get_reward(self, action):
