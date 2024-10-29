@@ -5,9 +5,9 @@ import random as rd
 
 
 class OpenlockEnv(gym.Env):
-    metadata = {'render.modes': ['None']}
+    metadata = {'render_modes': ['None']}
 
-    def __init__(self, size=6, pattern='CC3', max_step=3, seed=0):
+    def __init__(self, size=7, pattern='CC3', max_step=3, seed=0):
         ''''
             size: number of lever >= 6
             pattern: the pattern of solutions: [CC3|CE3|CC4|CE4]
@@ -31,7 +31,16 @@ class OpenlockEnv(gym.Env):
         self.__state = [0 for e in range(size+1)]
         self.__solutions = self.__sample_solution(self.__pattern)
         self.action_space = spaces.Discrete(size+1)
-        self.observation_space = spaces.MultiBinary(size+1)
+        
+        # change 
+        self.observation_space = spaces.Tuple([spaces.Dict({
+            'color': spaces.Text(10), # 0 grey 1 white
+            'state': spaces.Discrete(2)  # 1 push 0 not push
+        }) for e in range(size)]+[
+            spaces.Dict({
+                'door': spaces.Discrete(2), # 1 open 0 close
+                'state': spaces.Discrete(2) # 1 open 0 close
+        })])
     
     def get_solution(self):
         """get the solution of the environment
@@ -45,23 +54,33 @@ class OpenlockEnv(gym.Env):
         return self.__solutions
          
     def step(self, action: int):
-        '''
-            action: 0-5 拉对应的拉杆, 6 开门
-            每次step 都会计数
-        '''
+        """step function of the environment
+            active time
+        Args:
+            action (inst of action space): from 0 to size, 0 ~ size-1 represent levelers, size represent the door
+
+        Returns:
+            observation (inst of observation space): the observation of the environment
+            reward (float): the reward of the environment
+            truncated (bool): whether the episode is truncated
+            terminated (bool): whether the episode is finished
+            info (Dict): the information of the environment
+        """
         if (action == self.__size and self.__check_door()):
             self.__state[action] = 1
         else:
-            self.__state[action] = 1
+            self.__state[action] = 0
 
         # add step
         self.__step += 1
         # add trace
         self.__trace = self.__trace + str(action)
-
         return self.__get_obs(), self.__get_reward(action), self.__truncated(), self.__terminated(), self.__get_info()
 
     def __sample_solution(self, pattern):
+        """sample the solution of the environment
+            config time
+        """
         rd.seed(self.__seed)
         if ('CC' in pattern):
             if ('3' in pattern):
@@ -97,7 +116,11 @@ class OpenlockEnv(gym.Env):
         return False
 
     def __get_obs(self):
-        return np.array(self.__state)
+        solution_paths = set(''.join(self.__solutions))
+        return tuple({'color': 'grey' if str(x) in solution_paths else 'white', 
+                      'state':np.int64(self.__state[x])} 
+                     for x in range(self.__size)) + \
+                ({'door':np.int64(self.__state[self.__size]),'state':np.int64(self.__state[self.__size])},)
 
     def __get_reward(self, action):
         if (action == self.__size and self.__check_door()):
