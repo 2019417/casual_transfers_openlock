@@ -28,5 +28,4 @@ for e in range(episode):
         if episode_over:
             break
 
-
 env.close()

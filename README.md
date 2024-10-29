@@ -8,9 +8,13 @@
 先安装包
 ```bash
 pip install -r requirements.txt
-pip install openlockenv-0.0.2-py3-none-any.whl
+pip install openlockenv-0.0.3-py3-none-any.whl
 ```
 
+卸载包
+```bash
+pip uninstall openlockenv
+```
 
 ```python
 
@@ -20,7 +24,7 @@ import openlockenv #不加会报错
 # 不支持render
 # pattern: CC3,CC4,CE3,CE4
 # max_steps: default 3, 包括开门最多动3次
-# size: default 6 ,6 个 lever ,一闪门
+# size: default 7 ,7 个 lever ,一扇门
 # seed: default 0
 env = gym.make(id='openlockenv/OpenlockEnv-v0',pattern='CC3',seed=1)
 episode = 10
