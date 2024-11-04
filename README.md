@@ -56,23 +56,30 @@ c. 一次attempt只有3steps，包含开门。以上图为例，$L_0$在$L_1$或
 
 ### a. Training
 训练阶段只包含3个深灰色杆的场景。每完成一个trial（找到所有解锁方法或者attempt的次数用完），换到下一个位置不一样但解锁逻辑相同的房间进行下一个trial。
-### b. Test
+### b. Transfer
+其实transfer其实也是训练，相当于training是预训练，然后在transfere阶段微调。
+
+(没有所谓的这个测试阶段，相当于边学习边测试，这才解释了随着trial曲线的下降)
+
+只有6个 3-lever 和 5个 4-lever。
 #### congruent cases
-CE3-CE4 CC3-CC4 (train on 3,test on 4)
+CE3-CE4 CC3-CC4 (train on 3,transfer on 4)
 #### incongruent cases
-CC3-CE4 CE3-CC4 (train on 3,test on 4)
+CC3-CE4 CE3-CC4 (train on 3,transfer on 4)
 #### baseline
-CC4-CC4 CE4-CE4 (train on 4,test on 4)
+CC4-CC4 CE4-CE4 (train on 4,transfer on 4)
 
 ### c. Experimental Setup
 ##### transfer-based agent（本文提出的）
 (1) a training trial 最多30 attempts。每次trial的房间即杆的位置都不同，相同的房间只看一次。
 
-(2) 测试时对每个房间也只有1次机会，30个attempt。
+(2) 测试时对每个房间也只有1次机会，30个attempt。（所以曲线横坐标为5， 纵坐标max=30）
 ##### Model-free RL agent
 (1) a training trial 最多700 attempts。可以重复地看相同的房间（200次）。
 
-(2) 测试时对每个房间也有200次机会，700个attempt。什么是all six 3-lever and all five 4-lever？
+(2) 测试时对每个房间也有200次机会，700个attempt。(所以曲线横坐标为5*200=1000， 纵坐标max_attemps=700)
+
+
 
 (3) reward: 对每个解决方法只在第一次找到时才给个奖励。
 ![2](figs/2.png)
