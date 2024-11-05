@@ -1,0 +1,26 @@
+1.  model based
+
+abstract level:  which lever is the first level and ....
+
+instance level: 
+
+down: random sample, record lever level
+up: *
+
+model free:
+
+2. 
+abstract level:   CC,   CE ,  prompts 
+
+instance: subch
+
+down: 
+
+up: subC + abstract level des + scheme_prompt + (action flow)
+
+3.
+
+model-free：
+
+
+

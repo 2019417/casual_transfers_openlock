@@ -8,7 +8,7 @@
 先安装包
 ```bash
 pip install -r requirements.txt
-pip install openlockenv-0.0.3-py3-none-any.whl
+pip install openlockenv-0.0.4-py3-none-any.whl
 ```
 
 卸载包
