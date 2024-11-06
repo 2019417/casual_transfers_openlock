@@ -83,3 +83,21 @@ CC4-CC4 CE4-CE4 (train on 4,transfer on 4)
 
 (3) reward: 对每个解决方法只在第一次找到时才给个奖励。
 ![2](figs/2.png)
+
+
+## 4. Environment
+### git clone two repo
+### for gl, GUL of pyglet
+```bash
+apt-get install libglu1-mesa libglu1-mesa-dev 
+apt install libgl1-mesa-glx
+```
+### for constraint
+```bash
+conda install conda-forge::python-constraint
+```
+
+### for box2d
+```bash
+conda install conda-forge::pybox2d
+```
