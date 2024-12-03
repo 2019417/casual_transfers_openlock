@@ -1,2 +1,5 @@
 gymnasium
 numpy
+openai
+tenacity
+termcolor
