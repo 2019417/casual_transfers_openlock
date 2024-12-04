@@ -1,8 +1,8 @@
 from glob import iglob
 import re
 import logging
-from openai import OpenAI,AzureOpenAI
-from tenacity import retry,  stop_after_attempt
+from openai import OpenAI, AzureOpenAI
+from tenacity import retry,  stop_after_attempt,wait_random
 from termcolor import colored
 import time
 import json
@@ -10,15 +10,16 @@ import traceback
 import os
 import os.path as path
 
-logger = logging.getLogger('root.divider')
-logger.setLevel(logging.INFO)
-handler = logging.FileHandler('logs/'+__name__+'.log',mode='w')
-formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')  
-handler.setFormatter(formatter)
-logger.addHandler(handler)
+if __name__ != '__main__':
+    logger = logging.getLogger('root.divider')
+    logger.setLevel(logging.INFO)
+    handler = logging.FileHandler('logs/'+__name__+'.log', mode='w')
+    formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
 
 
-@retry(wait=1, stop=stop_after_attempt(1))
+@retry(wait=wait_random(0.2,2), stop=stop_after_attempt(1))
 def chat_completion_request(key, base_url, messages, tools=None, tool_choice=None, key_pos=None,
                             model="gpt-3.5-turbo", stop=None, process_id=0, **args):
     use_messages = []
@@ -47,11 +48,12 @@ def chat_completion_request(key, base_url, messages, tools=None, tool_choice=Non
 
     try:
         if model.startswith("gpt"):
-            if('azure' in base_url):
+            if ('azure' in base_url):
                 client = AzureOpenAI(azure_endpoint=base_url, api_key=key,
-                                 api_version='2024-05-01-preview') if base_url else OpenAI(api_key=key)
+                                     api_version='2024-05-01-preview') if base_url else OpenAI(api_key=key)
             else:
-                client = OpenAI(api_key=key, base_url=base_url) if base_url else OpenAI(api_key=key)
+                client = OpenAI(
+                    api_key=key, base_url=base_url) if base_url else OpenAI(api_key=key)
         else:
             raise NotImplementedError("Model not supported")
         openai_response = client.chat.completions.create(**json_data)
@@ -63,6 +65,7 @@ def chat_completion_request(key, base_url, messages, tools=None, tool_choice=Non
         traceback.print_exc()
         # import pdb;  pdb.set_trace()
         return {"error": str(e), "total_tokens": 0}
+
 
 class ChatGPTFunction:
     def __init__(self, model="gpt-4-turbo-2024-04-09", openai_key="", base_url=None):
@@ -145,5 +148,11 @@ class ChatGPTFunction:
 
         return {"role": "assistant", "content": str(response)}, -1, 0
 
+
 if __name__ == '__main__':
-    history = []
+    history = [{'role': 'user', 'content': 'hello'}]
+    llm = ChatGPTFunction(model='gpt-3.5-turbo', openai_key='sk-sfX6bec51b1311eeb2032f49df1be13371509de8360sQET4',
+                          base_url='https://api.gptsapi.net/v1')
+    llm.change_messages(history)
+    res = llm.parse(tools = [], process_id=0)
+    print(res)
