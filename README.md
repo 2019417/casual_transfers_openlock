@@ -85,3 +85,11 @@ CC4-CC4 CE4-CE4 (train on 4,test on 4)
 
 (3) reward: 对每个解决方法只在第一次找到时才给个奖励。
 ![2](figs/2.png)
+
+## 3. 算法设计
+
+
+### llm_base
+
+
+### ****other_method****
