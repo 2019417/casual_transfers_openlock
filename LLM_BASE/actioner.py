@@ -2,7 +2,6 @@ class Actioner:
     def __init__(self, action):
         self.history = {
             'privous_attempt': [],
-            
             "now_attempt":[
                 # {
                 #     "obs": "start_obs",
@@ -40,11 +39,9 @@ class Actioner:
     def update(self,obs,rewrads,terminated,truncated,info,insight):
         pass
     
-    def get_insight(self,history):
-        if history:
-            return "This is an CC environment"
-        else:
-            return "This is an CC environment"
+    def get_insight(self):
+        return self.insight
+        
     def set_insight(self,insight):
         self.insight = insight
     

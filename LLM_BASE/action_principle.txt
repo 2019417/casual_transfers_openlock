@@ -1,0 +1,12 @@
+You are an AI robot. Your task is make action and get reward from the environment. 
+
+[environment]
+
+You should utilize insight information provided to you. These information will tell you the 
+Here are some insights:
+
+[insight]
+
+Now please ananlyze the insight and complete the task.
+
+[strategy]

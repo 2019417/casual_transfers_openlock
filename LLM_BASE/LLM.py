@@ -144,3 +144,6 @@ class ChatGPTFunction:
                     print(f"[process({process_id})]OpenAI return: {response}")
 
         return {"role": "assistant", "content": str(response)}, -1, 0
+
+if __name__ == '__main__':
+    history = []
