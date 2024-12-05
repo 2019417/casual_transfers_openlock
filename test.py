@@ -20,7 +20,8 @@ for e in range(episode):
     episode_over = False
     i = 0
     while(not episode_over):
-        action = env.action_space.sample() # agent policy that uses the observation and info
+        # action = env.action_space.sample() # agent policy that uses the observation and info
+        action = int(input("Your action: "))
         print(f"action_num_{i}:",action)
         i+=1
         observation, reward, terminated, truncated, info = env.step(action) #
