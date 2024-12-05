@@ -2,16 +2,22 @@ from LLM import ChatGPTFunction
 from utils import load_file_from_cwd,save_file_to_cwd
 
 class Insighter:
-    def __init__(self):        
+    def __init__(self,*args,**kwargs):        
+        self.reset(*args,**kwargs)
+        
+    def reset(self,env_info=None):
         self.AK = None
         self.insight = None       
         self.config = load_file_from_cwd('config.json')
         self.llm = ChatGPTFunction(**self.config)
+        self.env_info = env_info
         
     def generate_insight(self,history):
         # Some logic to generate insight
         insight_template = load_file_from_cwd("inference_principle.txt")
         insight_template.replace('[history]',history)
+        insight_template.replace('[environment]',self.env_info)
+        insight_template.replace('[knowledge]',self.AK)
         messages = [
             {
                 'role': 'system',
