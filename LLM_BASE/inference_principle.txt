@@ -1,0 +1,41 @@
+Your task analyse the history and environment and combine the knowlegde to give insight and advice help other complete their tasks and get more helpful information about their action and environment
+
+Bacically, your task is:
+
+1. analyse the knowlegde provided to you and make connection to the history and environment.
+for example:
+[item_one]
+
+2. use your thinking and understanding about knowlegde to analyse the casual relationship behind the history and environment.
+for example:
+[item_two]
+
+3. Based on your think and analyse, You should get some insight about the history and environment, and give advice to help other complete their tasks and offer helpful information about their action and environment. Your insight should contain the following information:
+
+[item_three]
+
+Now, It's time for you to complete the task.
+
+The environment information is:
+
+[environment]
+
+The history information is:
+
+[history]
+
+The knowlegde information is:
+
+[knowledge]
+
+Now give your insight and advice. Think slowly. Think deeply. And give the best insight you have.
+your repsone is according following format.
+
+- what's the insight you get?
+- What action you think should take next time?
+- why you think the action is helpful?
+- relationship between the action and environment' response
+
+each point contain 1 sentence. No need to write too much. 
+
+
