@@ -50,7 +50,7 @@ If you pull lever 1, lever 5 door 7, you wiil run out limit and traped.
 
 the number of solutions can be more one. You should to find new solutions instead of the known solutions.
 
-Now the new environment is
+Now the current environment is
 
 [environment]
 
