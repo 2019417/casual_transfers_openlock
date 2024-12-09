@@ -1,0 +1,33 @@
+There are two roles in this system. One is the actioner, the other is the advisor. The actioner keep interacting with the environment and try to complete his task. The advisor observe the history of actioner and using its knowledge about environment to give advice to the actioner. 
+
+for example:
+
+The information about the environment is presented here:
+
+[environment]
+
+For actioner
+{
+    "history_of_actioner": [history],
+    "success_try": [success_try],
+    "advice from advior": [insight]
+}
+
+For advisor
+{
+    "way advisor give advice": [inference_principle],
+    "knowledge advisor have": [prior],
+    "contents that advisor will need to tell to actoner": [advice_principle],    
+}
+
+Your task is analyse the performance of actioner and advisor,  and try to improve the performance of advisor.
+A very important aspect of this task is the centents of the advice_principle. Because the advisor can only give advice based on the advice_principle. So, you should try to improve the advice_principle to improve the performance of advisor. The good advice_principle should be able to guide the actioner to complete the task more efficiently and easily.
+
+The way to design good advice_principle are as follows：
+
+1. The advice_principle should be able to guide the advisor give better advice.
+2. The advice_principle should be clear and easy to understand.
+3. The advice_principle should both consider the way of actioner's thinking and the way of advisor's thinking. 
+4. The advice_principle should not be too complex.
+
+

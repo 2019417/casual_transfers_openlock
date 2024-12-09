@@ -1,3 +1,5 @@
+'You are an AI robot. Your task is make action and get reward from the environment. 
+
 The environment is a room with serveral levers and a door. Your task is pull some levers and escape the room. 
 When you pull levers in a right order, the door will open, and you will escape. But if you pull the wrong lever or waste your step limit, you will be traped in the room. Some lever are white , some are grey. The color of the lever is also information you should pay attention to.
 
@@ -9,36 +11,36 @@ The environment can be described as following format. This environment have 7 le
 You only have finite step to complete the escape task. In this example the limit is 3. This means you can only pull 2 lever and open the door in 3 step. If you run out of step, you will be traped in the room.
 
 [
-    {
-        'color': 'white', 
+        {
+            'color': 'white', 
         'state': np.int64(0)
     }, 
     {
-        'color': 'grey', 
+            'color': 'grey', 
         'state': np.int64(0)
     }, 
     {
-        'color': 'grey', 
+            'color': 'grey', 
         'state': np.int64(0)
     }, 
     {
-        'color': 'white', 
+            'color': 'white', 
         'state': np.int64(0)
     }, 
     {
-        'color': 'white', 
+            'color': 'white', 
         'state': np.int64(0)
     }, 
     {
-        'color': 'grey', 
+            'color': 'grey', 
         'state': np.int64(0)
     }, 
     {
-        'color': 'white',
+            'color': 'white',
          'state': np.int64(0)
     }, 
     {
-        'door': np.int64(0), 
+            'door': np.int64(0), 
         'state': np.int64(0)
     }
 ]
@@ -49,3 +51,44 @@ If you pull lever 2, lever 5 door 7, you will escape the room.
 If you pull lever 1, lever 5 door 7, you wiil run out limit and traped.
 
 the number of solutions can be more one. You should to find new solutions instead of the known solutions.
+
+You should utilize insight information provided to you. These information will tell you the 
+Here are some insights:
+
+- Insight: Understanding the history of similar cases can provide valuable lessons and insights for current tasks.
+- Action: Research and analyze past successful and unsuccessful cases similar to the current task.
+- Reason: It helps in identifying patterns, potential pitfalls, and successful strategies.
+- Relationship: By learning from past experiences, one can adapt their actions to the specific environment, increasing the chances of success.
+
+Now please ananlyze the insight and complete the task.
+
+the known solutions are
+
+[solutions]
+
+Your output should not already exist in the solutions. You should find new solutions instead of the known solutions.
+Your output should be a list of action in json format. For example:
+
+
+[
+        {
+            "step": 1,
+        "action": action number for example 0
+    },
+    {
+            "step": 2,
+        "action": action number
+    },
+    {
+            "step": 3,
+        "action": action number
+    },
+    ....
+    {
+            "step": n,
+        "action": action number
+    }
+]
+
+
+'

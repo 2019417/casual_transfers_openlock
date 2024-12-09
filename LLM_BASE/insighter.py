@@ -1,14 +1,15 @@
 from LLM import ChatGPTFunction
 from utils import load_file_from_cwd,save_file_to_cwd
+import json
 
 class Insighter:
     def __init__(self,*args,**kwargs):        
         self.reset(*args,**kwargs)
         
     def reset(self,env_info=None):
-        self.priors = None
-        self.insight = None       
-        self.config = load_file_from_cwd('config.json')
+        self.priors = ""
+        self.insight = ""
+        self.config = json.loads(load_file_from_cwd('config.json'))
         self.llm = ChatGPTFunction(**self.config)
         self.env_info = env_info
         
@@ -36,10 +37,9 @@ class Insighter:
         ]
         
         self.llm.change_messages(messages)
-        response,_ = self.llm.parse([],0)
-        self.insight = response
+        response, *_ = self.llm.parse([],0)
+        self.insight = response['content']
         return self.insight
-
 
     def get_knowledge(self):
         return self.priors

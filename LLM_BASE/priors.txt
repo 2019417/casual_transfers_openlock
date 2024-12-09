@@ -1,1 +1,0 @@
-This env's underlying structure is CC.

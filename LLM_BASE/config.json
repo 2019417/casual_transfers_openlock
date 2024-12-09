@@ -1,5 +1,5 @@
 {
-    "openai_key": "",
-    "base_url": "",
-    "model": ""
+    "openai_key": "sk-sfX6bec51b1311eeb2032f49df1be13371509de8360sQET4",
+    "base_url": "https://api.gptsapi.net/v1",
+    "model": "gpt-3.5-turbo"
 }

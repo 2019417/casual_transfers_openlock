@@ -1,0 +1,20 @@
+Your task is observe the interplay between the actioner and the environment and try to find the most important aspect of the environment that the actioner should pay attention to. 
+For example, 
+In an environment where the actioner is a robot and the environment is a maze, the most important aspect of the environment is the maze itself. The robot should pay attention to the maze and try to find the way to the exit.
+
+In an environment where goal is trying to get most the reward of the environment. You should pay attention to the reward of the environment and find out what is the underlying principle of the reward.
+
+Now the environment info is presented here.
+
+[environment]
+
+The history of interplay between actioner and environment is recorded here
+
+[history]
+
+There are some hints for you to find out the most important aspect of the environment.
+These action sequences are recorded here.
+
+[success_try]
+
+Now, please give out your answer about the underlying principle of the environment and most important aspect of the environment .

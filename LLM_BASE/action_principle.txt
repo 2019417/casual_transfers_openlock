@@ -16,21 +16,25 @@ the known solutions are
 Your output should not already exist in the solutions. You should find new solutions instead of the known solutions.
 Your output should be a list of action in json format. For example:
 
-```json
+
 [
     {
-        "step": "1",
-        "action": "0"
+        "step": 1,
+        "action": action number for example 0
     },
     {
-        "step": "2",
-        "action": "1"
+        "step": 2,
+        "action": action number
     },
     {
-        "step": "3",
-        "action": "7"
+        "step": 3,
+        "action": action number
+    },
+    ....
+    {
+        "step": n,
+        "action": action number
     }
 ]
 
-```
 

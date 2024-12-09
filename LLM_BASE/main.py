@@ -16,25 +16,28 @@ PURPLE = '\033[1;35;40m'
 RESET = '\033[0m'
 
 def yellow(message):
+    message = str(message)
     return YELLOW + message + RESET
 
 def red(message):
+    message = str(message)
     return RED + message + RESET
 
 def purple(message):
+    message = str(message)
     return PURPLE + message + RESET
 
 def green(message):
+    message = str(message)
     return GREEN + message + RESET
 
 def white(message):
+    message = str(message)
     return WHITE + message + RESET
 
-
-
 def color(message,color_id):
+    message = str(message)
     return "\033[1;"+str(color_id)+";40m"+message+RESET
-
 
 class Runner:
     def __init__(self,pattern,env_seed,env_max_step):
@@ -45,31 +48,53 @@ class Runner:
         self.learner = Learner(env_info)
     
     def play(self): 
-        obs = self.env.reset()
+        obs,info = self.env.reset()
         terminated = False
         truncated = False
-        while not (terminated or truncated):
-            action = self.infence_action()
-            # chose your action 
-            obs, reward, terminated, truncated, info = self.env.step(action)
-
-        self.beysian_update()
-        
+        solution = info['solution']
+        num_of_solution = len(solution)
+        print(purple("Welcome to the OpenLockEnv!"))        
+        action = self.infence_action(obs=obs)
+        finished_count = 0
+    
+        while finished_count < num_of_solution:            
+            action_sequence = []
+            print(red("{0:-^50}".format("Environment start")))
+            while not (terminated or truncated):
+                print_obs(obs)
+                print("{0:-^50}".format("Insight"))
+                print(yellow(self.actioner.get_insight()))
+                print("{0:-^50}".format("Action"))
+                print(green(action))
+                action = int(input("Your action: "))
+                # can alse input insight and knowledge
+                obs, reward, terminated, truncated, info = self.env.step(action)
+                action = self.infence_action(obs = obs,rewards = reward,terminated = terminated,truncated = truncated)
+                action_sequence.append(action)
+                if terminated:
+                    seq = "".join(action_sequence)
+                    if seq in solution:                        
+                        print("Congratulations! You have finished the task. The solution is: ",seq)
+                        finished_count += 1
+                        solution.remove(seq)                        
+            self.beysian_update()
+            print(yellow("beysian update done!"))
+            print(white("{:-^50}").format("knowledge updated!"))
+            print(white(self.insighter.priors))
+            print(red("{0:-^50}".format("reset environment")))
+            self.env.reset()
         # show something, history, insighter
         
         
-    def infence_action(self,insight = None,knowledge = None, env_response = None):
+    def infence_action(self,insight = None,knowledge = None,obs = None,rewards = None,terminated = None,truncated = None):
         # env_response: (obs,rewards,terminated,truncated) (from env.step()) or None
-        if knowledge is None:
+        if knowledge is not None:
             self.insighter.set_knowledge(knowledge)            
         if insight is None:
             history = self.actioner.get_history()            
-            insight = self.insighter.generate_insight(history)            
+            insight = self.insighter.generate_insight(history)
         self.actioner.set_insight(insight)
-        if env_response is None:
-            action = self.actioner.action()
-        else:
-            action = self.actioner.action(env_response[0],env_response[1],env_response[2],env_response[3])
+        action = self.actioner.action(obs,rewards,terminated,truncated)
         return action
     
     def beysian_update(self):
@@ -79,19 +104,20 @@ class Runner:
         # from actioner
         history = self.actioner.get_history()
         insight = self.actioner.get_insight()
+        success_try = self.actioner.get_success_try()
         
         # from insighter
         inference_template = self.insighter.inference_principle_template
         inference_item = self.insighter.inference_principle_item
+        priors = self.insighter.priors
         
-        new_inference_item = self.learner.update_insighter(history,insight,inference_template,inference_item)        
+        new_inference_item = self.learner.update_insighter(history,insight,inference_template,inference_item,priors,success_try)  
         self.insighter.inference_principle_item = new_inference_item
         
         # update prior level
-        new_priors = self.learner.update_prior(insight,self.insighter.inference_principle,self.insighter.priors,history = history)
+        new_priors = self.learner.update_prior(history,success_try)
         self.insighter.priors = new_priors
         save_file_to_cwd(new_priors,'priors.txt')
-        
         
 # 不支持render
 # pattern: CC3,CC4,CE3,CE4
@@ -100,24 +126,28 @@ class Runner:
 # seed: default 0
 def print_obs(obs):
     l = len(obs)
-    names = ['levers_'+i for i in range(l-1)]
+    names = [f'levers_{i}' for i in range(l-1)]
     names = names + ['door']
     colors = [obs[i].get('color','no color') for i in range(l)]
     states = [obs[i].get('state','no state') for i in range(l)]
     
-    format_names = [f'{name:^10}' for name in names]
+    format_names =  [f'{name:^10}' for name in names]
     format_colors = [f'{color:^10}' for color in colors]
     format_states = [f'{state:^10}' for state in states]
     
-    name_line = '|'+'|'.join(names)+'|'
-    color_line = '|'+'|'.join(format_names)+'|'
+    name_line = '|'+'|'.join(format_names)+'|'
+    color_line = '|'+'|'.join(format_colors)+'|'
     state_line = '|'+'|'.join(format_states)+'|'
     
     print('\n'.join([name_line,color_line,state_line]))
+    
     
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--mode',type=str,default='play',help='function of the program, train, test ,play')
-        
+    
+    # runner = Runner('CC3',1,5)
+    # runner.play()
+    print(__name__)
 
