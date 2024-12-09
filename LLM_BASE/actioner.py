@@ -1,10 +1,9 @@
+import logging.config
 import queue
 from LLM import ChatGPTFunction
 import json
 from utils import load_file_from_cwd
 import logging
-
-
 
 
 class Actioner:
@@ -83,7 +82,6 @@ class Actioner:
         
     def set_insight(self,insight):
         self.insight = insight
-    
     
     
 if __name__ == "__main__":
