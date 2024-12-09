@@ -1,0 +1,17 @@
+gym==0.10.5
+numpy
+pyglet
+pygraphviz
+pymdptoolbox
+transitions
+shapely
+jsonpickle
+keras
+tensorflow
+h5py
+matplotlib
+zmq
+texttable
+sphinx
+seaborn
+box2d-py

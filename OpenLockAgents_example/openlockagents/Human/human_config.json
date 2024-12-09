@@ -1,0 +1,6 @@
+{
+  "HUMAN_SAVE_DIR": "~/Desktop/OpenLockHumanResults/",
+  "HUMAN_PROBABILISTIC_DATA_DIR":  "../OpenLockResultsDataProcessing/probabilistic",
+  "HUMAN_DETERMINISTIC_DATA_DIR":  "../OpenLock_materials/OpenLockAgentData/OpenLockAgentData_det",
+  "HUMAN_PICKLE_DATA_PATH": "~/Desktop/Mass/CausalLearnerPickleData/subject_data.pickle"
+}

@@ -1,0 +1,16 @@
+*.pyc
+*.egg-info
+*.egg
+.idea
+*.bak
+.env
+build
+dist
+openlockagents/OpenLockBayesianLearner/perceptual_causality/all_matlab_dat
+assets
+*.so
+.DS_Store
+.vscode/
+AgentResults/
+openlockagent*.sh
+*.code-workspace
