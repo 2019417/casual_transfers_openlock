@@ -12,7 +12,7 @@ why some case in the history is successful and some is not? what action make the
 
 3. Based on your think and analyse, You should get some insight about the history and environment, and give advice to help other complete their tasks and offer helpful information about their action and environment. Your insight should contain the following information:
 
-[item_three]
+[item]
 
 Now, It's time for you to complete the task.
 

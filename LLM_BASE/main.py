@@ -70,7 +70,7 @@ class Runner:
                 # can alse input insight and knowledge
                 obs, reward, terminated, truncated, info = self.env.step(action)
                 action = self.infence_action(obs = obs,rewards = reward,terminated = terminated,truncated = truncated)
-                action_sequence.append(action)
+                action_sequence.append(str(action))
                 if terminated:
                     seq = "".join(action_sequence)
                     if seq in solution:                        

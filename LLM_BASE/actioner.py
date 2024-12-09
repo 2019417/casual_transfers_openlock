@@ -84,7 +84,9 @@ class Actioner:
     def get_history(self):
         res = "The history of this task is: \n"
         for i in range(self.history.qsize()):
-            res += f"Round {i}: {json.dumps(self.history.get(),indent=2)}\n"
+            #TODO better expression ?
+            round_res = str(self.history.get())
+            res += f"Round {i}: {round_res}\n"
         return res
     
     def get_success_try(self):
