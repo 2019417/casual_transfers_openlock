@@ -60,7 +60,7 @@ for iter_num in tqdm(range(params["num_training_iters"])):
         )''' #stop log
 ```
 
-# 3. run
+# 3. experiment setting
 ```bash
 #OpenLockAgents_example/openlockagents/A2C/a2c_open_lock.py
 #TA是主要在原来的main()基础上改成了a2c_main_like_human(） 3为iter，可以按论文设为200，700是max_attempt
@@ -72,5 +72,12 @@ params["num_training_trials"] = params["train_num_trials"]
 possible_trials = agent.get_random_order_of_possible_trials(
         params["train_scenario_name"]
     )
-#可以按照类似的修改方式按照一个标准测试几个model-free RL
+```
+
+```text
+可以按照类似的修改方式按照一个标准测试几个model-free RL
+现在的设置是
+train（cc3 200iter 6rooms 700attempt）
+transfer（cc4 200iter 1rooms 700attempt）
+即transfer只有一个房间，按原论文是要循环5个4-lever房间，可以改，但要统一
 ```
