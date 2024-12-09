@@ -5,6 +5,8 @@ import json
 from utils import load_file_from_cwd
 import logging
 
+logging.config.fileConfig('logging.conf')
+logger = logging.getLogger('actioner')
 
 class Actioner:
     def __init__(self, env_info = None):
@@ -28,19 +30,27 @@ class Actioner:
         self.now_attempt = []
 
     def __generate_action_seq(self):
+        logger.info("Generate new action sequence")
+        
         action_template = load_file_from_cwd('action_principle.txt')
         action_template = action_template.replace("[insight]",self.insight)
         action_template = action_template.replace("[environment]",self.env_info)
         action_template = action_template.replace("[solutions]",json.dumps(self.known_solutions))
+        
+        logger.debug(f"Action template: {action_template}")
+        
         messages = [{
             'role': 'system',
             'content': action_template
         }]
         self.llm.change_messages(messages) 
         response, *_ = self.llm.parse([],0)
+        
         action_list = json.loads(response['content'])
         action_list.sort(key=lambda x: x['step'],reverse=True)
-        self.action_seq = [x['action'] for x in action_list]        
+        self.action_seq = [x['action'] for x in action_list]
+        
+        logger.debug(f"Action sequence: {self.action_seq}")
 
     def __attempt__(self,step,obs,action,insight):
         return {
@@ -56,6 +66,9 @@ class Actioner:
         # check input 
         # TODO: check ?
         if(terminated or truncated):
+            logger.info("Task terminated or truncated")
+            logger.info(f"Rewards: {rewards}")
+            logger.info(f"Now Action sequence: {self.now_attempt}")
             self.history.put(self.now_attempt)
             if(rewards>0):
                 self.known_solutions.append(self.action_seq)

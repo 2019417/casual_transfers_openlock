@@ -1,6 +1,10 @@
+import logging.config
 from LLM import ChatGPTFunction
 from utils import load_file_from_cwd,save_file_to_cwd
 import json
+import logging
+logging.config.fileConfig('logging.conf')
+logger = logging.getLogger('insighter')
 
 class Insighter:
     def __init__(self,*args,**kwargs):        
@@ -28,6 +32,7 @@ class Insighter:
         return inference_template
         
     def generate_insight(self,history):
+        logger.info("Generate new insight")
         inference_template = self.build_inferece_principle(history)
         messages = [
             {
@@ -35,10 +40,11 @@ class Insighter:
                 'content': inference_template
             }
         ]
-        
+        logger.debug(f"Insight template: {inference_template}")
         self.llm.change_messages(messages)
         response, *_ = self.llm.parse([],0)
         self.insight = response['content']
+        logger.debug(f"Insight: {self.insight}")
         return self.insight
 
     def get_knowledge(self):

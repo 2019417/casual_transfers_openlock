@@ -147,7 +147,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--mode',type=str,default='play',help='function of the program, train, test ,play')
     
-    # runner = Runner('CC3',1,5)
-    # runner.play()
-    print(__name__)
+    runner = Runner('CC3',1,5)
+    runner.play()
+    # print(__name__)
 

@@ -1,7 +1,9 @@
 from LLM import ChatGPTFunction
 from utils import load_file_from_cwd,save_file_to_cwd
 import json
-
+import logging
+logging.config.fileConfig('logging.conf')
+logger = logging.getLogger('beyesian_learner')
 
 class Learner:
     def __init__(self,env_info,**kwargs):
@@ -15,6 +17,7 @@ class Learner:
         self.prior_likehood = load_file_from_cwd("prior_likehood.txt")
     
     def update_insighter(self,history,insights,inference_template,inference_item,prior,success_try):
+        logger.info("updating insighter: ")
         insighter_likehood = self.insighter_likehood
         insighter_likehood = insighter_likehood.replace("[history]",history)
         insighter_likehood = insighter_likehood.replace("[inference_principle]",inference_template)
@@ -23,6 +26,8 @@ class Learner:
         insighter_likehood = insighter_likehood.replace("[prior]",prior)
         insighter_likehood = insighter_likehood.replace("[insight]",insights)
         insighter_likehood = insighter_likehood.replace("[success_try]",success_try)
+        
+        logger.debug("insighter_likehood: "+insighter_likehood)
         messages = [
             {
                 'role': 'system',
@@ -31,9 +36,11 @@ class Learner:
         ] 
         self.llm.change_messages(messages)
         response,_ = self.llm.parse([],0)    
+        logger.debug("response: "+response)
         return response
     
     def update_prior(self,history,success_try):
+        logger.info("updating prior: ")
         prior_likehood = self.prior_likehood
         prior_likehood = prior_likehood.replace("[history]",history)
         prior_likehood = prior_likehood.replace("[environment]",self.env_info)
@@ -44,8 +51,10 @@ class Learner:
                 'content': prior_likehood
             }
         ]
+        logger.debug('prior_likehood: '+prior_likehood)
         self.llm.change_messages(messages)
         response,_ = self.llm.parse([],0)
+        logger.debug("response: "+response)
         return response
        
        
