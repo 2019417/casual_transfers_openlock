@@ -101,3 +101,10 @@ conda install conda-forge::python-constraint
 ```bash
 conda install conda-forge::pybox2d
 ```
+```bash
+conda install --channel conda-forge pygraphviz
+```
+```bash
+ROOT_DIR = "/home/wajuda/Proj/OpenLockAgents_example"
+```
+
