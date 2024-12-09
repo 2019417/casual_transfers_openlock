@@ -10,15 +10,6 @@ import traceback
 import os
 import os.path as path
 
-if __name__ != '__main__':
-    logger = logging.getLogger('root.divider')
-    logger.setLevel(logging.INFO)
-    handler = logging.FileHandler('logs/'+__name__+'.log', mode='w')
-    formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
-
-
 @retry(wait=wait_random(0.2,2), stop=stop_after_attempt(1))
 def chat_completion_request(key, base_url, messages, tools=None, tool_choice=None, key_pos=None,
                             model="gpt-3.5-turbo", stop=None, process_id=0, **args):

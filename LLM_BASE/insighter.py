@@ -12,26 +12,26 @@ class Insighter:
         self.llm = ChatGPTFunction(**self.config)
         self.env_info = env_info
         
-        self.default_item_one = "what aspect of the history and environment is related to the knowlegde? what's the relationship between the knowlegde and the history and environment?"
-        self.default_item_two = "why some case in the history is successful and some is not? what action make the case successful? what action make the case fail? What relationship between the action and environment' response have? what's is underlying mechanism behind the relationship? And how to use it?"
-        self.default_item_three = "- what's the insight you get? \n- What action you think should take next time?\n- why you think the action is helpful?\n- relationship between the action and environment' response"
+        self.inference_principle_template = load_file_from_cwd("inference_principle.txt")
+        self.inference_principle_item = "- what's the insight you get? \n- What action you think should take next time?\n- why you think the action is helpful?\n- relationship between the action and environment' response"
+        self.inference_principle = self.build_inferece_principle("")
+       
+    def build_inferece_principle(self,history):
+        inference_template = self.inference_principle_template
+        # inference context
+        inference_template.replace('[history]',history)
+        # learning context
+        inference_template.replace('[item]',self.inference_principle_item)
+        inference_template.replace('[environment]',self.env_info)
+        inference_template.replace('[knowledge]',self.priors)
+        return inference_template
         
-        
-    def generate_insight(self,history,insight_items):
-        # Some logic to generate insight
-        insight_template = load_file_from_cwd("inference_principle.txt")
-        insight_template.replace('[history]',history)
-        insight_template.replace('[environment]',self.env_info)
-        insight_template.replace('[knowledge]',self.priors)
-    
-        insight_template.replace('[item_one]',insight_items.get('item_one',self.default_item_one))
-        insight_template.replace('[item_two]',insight_items.get('item_two',self.default_item_two))
-        insight_template.replace('[item_three]',insight_items.get('item_three',self.default_item_three))
-        
+    def generate_insight(self,history):
+        inference_template = self.build_inferece_principle(history)
         messages = [
             {
                 'role': 'system',
-                'content': insight_template
+                'content': inference_template
             }
         ]
         
@@ -39,13 +39,18 @@ class Insighter:
         response,_ = self.llm.parse([],0)
         self.insight = response
         return self.insight
-    
+
+
     def get_knowledge(self):
         return self.priors
+
+    def get_principle_item(self):
+        return self.inference_principle_item
+
+    def set_principle_item(self,inference_principle_item):
+        self.inference_principle_item = inference_principle_item
     
     def set_knowledge(self,priors):
         self.priors = priors
         
-    def save_knowledge(self):
-        save_file_to_cwd(self.priors,'priors.txt')
     

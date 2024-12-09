@@ -4,11 +4,11 @@ Bacically, your task is:
 
 1. analyse the knowlegde provided to you and make connection to the history and environment.
 for example:
-[item_one]
+what aspect of the history and environment is related to the knowlegde? what's the relationship between the knowlegde and the history and environment?
 
 2. use your thinking and understanding about knowlegde to analyse the casual relationship behind the history and environment.
 for example:
-[item_two]
+why some case in the history is successful and some is not? what action make the case successful? what action make the case fail? What relationship between the action and environment' response have? what's is underlying mechanism behind the relationship? And how to use it?
 
 3. Based on your think and analyse, You should get some insight about the history and environment, and give advice to help other complete their tasks and offer helpful information about their action and environment. Your insight should contain the following information:
 

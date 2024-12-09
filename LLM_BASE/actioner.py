@@ -37,24 +37,33 @@ class Actioner:
             'action':action,
             "insight":insight
         }
-    
-    def action(self,obs,rewards,terminated,truncated,**kwargs):
+
+    def action(self,obs=None, rewards=0,terminated=None,truncated=None,**kwargs):
         if(len(self.action_seq)==0):
             self.__generate_action_seq() 
-        if(terminated or truncated):
-            self.history.put(self.now_attempt)
-            if(rewards>0):
-                self.known_solutions.append(self.action_seq)
-            return -1
         else:
-            action = self.action_seq.pop(0)
-            step = self.now_attempt[-1].get('step') + 1
-            self.now_attempt.append(self.__attempt__(obs,step,action,self.insight))
-            return action
+            # check input 
+            # TODO: not check rewards
+            if obs is None or terminated is None or truncated is None:
+                raise ValueError(f"Invalid input: obs must be a dict, terminated must be a bool, truncated must be a bool, rewards must be an float or int")
+            
+            if(terminated or truncated):
+                self.history.put(self.now_attempt)
+                if(rewards>0):
+                    self.known_solutions.append(self.action_seq)
+                return -1
+            else:
+                
+                action = self.action_seq.pop(0)
+                step = self.now_attempt[-1].get('step') + 1
+                self.now_attempt.append(self.__attempt__(obs,step,action,self.insight))
+                return action
+    
+    def get_history(self):
+        return self.history
         
     def get_insight(self):
         return self.insight
-        
         
     def set_insight(self,insight):
         self.insight = insight
