@@ -1,11 +1,9 @@
 The environment is a room with serveral levers and a door. Your task is pull some levers and escape the room. 
 When you pull levers in a right order, the door will open, and you will escape. But if you pull the wrong lever or waste your step limit, you will be traped in the room. Some lever are white , some are grey. The color of the lever is also information you should pay attention to.
 
-For example, the room have six levers, and you only have 3 step to go. The right order is lever 1, lever 3, lever 6 or lever 1, lever 4, lever 6. If you pull lever 2, lever 1, lever 6, you will be traped in the room beacuse you run out the step limit and can't produce the right lever pattern. If you pull lever 1, lever 3, lever 6, you will escape the room.
+For example, we can instance a environment as Environment A.
 
-the are some more specific case you can follow:
-
-The environment can be described as following format. This environment have 7 levers and one door. The first lever are aranged in the top postition and its index is 0. The seventh lever's index is 6. The door's index is 7. The door is locked at the beginning. The state of lever and door are described in field 'color' ,'state', the 'color' of lever can be 'white' or 'grey'. the state of door and lever can be 0 or 1. 0 means the lever is not pulled, 1 means the lever is pulled. The state of door is 0 means the door is locked, 1 means the door is open. 
+The environment A can be described as following format. This environment have 7 levers and one door. The first lever are aranged in the top postition and its index is 0. The seventh lever's index is 6. The door's index is 7. The door is locked at the beginning. The state of lever and door are described in field 'color' ,'state', the 'color' of lever can be 'white' or 'grey'. the state of door and lever can be 0 or 1. 0 means the lever is not pulled, 1 means the lever is pulled. The state of door is 0 means the door is locked, 1 means the door is open. 
 You only have finite step to complete the escape task. In this example the limit is 3. This means you can only pull 2 lever and open the door in 3 step. If you run out of step, you will be traped in the room.
 
 [
@@ -44,8 +42,48 @@ You only have finite step to complete the escape task. In this example the limit
 ]
 
 the step limit is 3
-the right order is lever 2 and lever 5 and door 7 or lever 2 and lever 1 door 7. 
-If you pull lever 2, lever 5 door 7, you will escape the room. 
-If you pull lever 1, lever 5 door 7, you wiil run out limit and traped.
+The solutions of the environment A are:
+[
+    # the first solution
+    [
+        {
+            'step': 1, 
+            'action': 2 # first pull the third lever
+        }, 
+        {
+            'step': 2, 
+            'action': 5 # the pull the sixth lever
+        }, 
+        {
+            'step': 3, 
+            'action': 7 # then open the door
+        }
+    ], 
+    # the second solution
+    [
+        {
+            'step': 1, 
+            'action': 2 # first pull the third lever
+        },
+        {
+            'step': 1, 
+            'action': 1 # first pull the second lever
+        },
+        {
+            'step': 7,
+            'action': 7 # then open the door
+        }
+    ]
+    # maybe more solutions
+]
 
 the number of solutions can be more one. You should to find new solutions instead of the known solutions.
+Now we can see the environment A at least have 2 solutions
+There are:
+
+1. Pull the third lever, pull the sixth lever, open the door. means (2, 5, 7)
+2. Pull the third lever, pull the second lever, open the door. means (2, 1, 7)
+
+But the environment can be set or reset, so the solution can be different. You need to find new solutions instead of the known solutions and adopt to new environment. Some mechanism and principle are same in different environment. You should find the mechanism and principle and use them to find new solutions.
+
+

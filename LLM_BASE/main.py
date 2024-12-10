@@ -47,44 +47,43 @@ class Runner:
         self.learner = Learner(env_info)
     
     def play(self): 
-        obs,info = self.env.reset()
-        terminated = False
-        truncated = False
-        solution = info['solution']
-        num_of_solution = len(solution)
-        finished_count = 0
-        print(purple("Welcome to the OpenLockEnv!"))        
-    
-        while finished_count < num_of_solution:            
-            action = self.infence_action(obs=obs)
-            action_sequence = []
-            print(red("{0:-^50}".format("Environment start")))
-            while not (terminated or truncated):
-                print_obs(obs)
-                print("{0:-^50}".format("Insight"))
-                print(yellow(self.actioner.get_insight()))
-                print("{0:-^50}".format("Action"))
-                print(green(action))
-                action = int(input("Your action: "))
-                # can alse input insight and knowledge
-                obs, reward, terminated, truncated, info = self.env.step(action)
-                action = self.infence_action(obs = obs,rewards = reward,terminated = terminated,truncated = truncated)
-                action_sequence.append(str(action))
-                if terminated:
-                    seq = "".join(action_sequence)
-                    if seq in solution:                        
-                        print("Congratulations! You have finished the task. The solution is: ",seq)
-                        finished_count += 1
-                        solution.remove(seq)                        
-            self.beysian_update()
-            print(yellow("beysian update done!"))
-            print(white("{:-^50}").format("knowledge updated!"))
-            print(white(self.insighter.priors))
-            print(red("{0:-^50}".format("reset environment")))
+        print(purple("Welcome to the OpenLockEnv!"))
+        for seed in range(20):
+            print(yellow(f"Round {seed} start!"))
             obs,info = self.env.reset()
-            truncated ,terminated ,reward = False,False,0
+            terminated,truncated,reward = False,False,0
+            solution = info['solution']
+            num_of_solution = len(solution)
+            finished_count = 0
+            while finished_count < num_of_solution:
+                action = self.infence_action(obs=obs)
+                action_sequence = []
+                print(red("{0:-^50}".format("Environment start")))
+                while not (terminated or truncated):
+                    print_obs(obs)
+                    print("{0:-^50}".format("Insight"))
+                    print(yellow(self.actioner.get_insight()))
+                    print("{0:-^50}".format("Action"))
+                    print(green(action))
+                    action = int(input("Your action: "))
+                    # can alse input insight and knowledge
+                    obs, reward, terminated, truncated, info = self.env.step(action)
+                    action = self.infence_action(obs = obs,rewards = reward,terminated = terminated,truncated = truncated)
+                    action_sequence.append(action)
+                    if terminated:
+                        seq = "".join(map(str,action_sequence))
+                        if seq in solution:
+                            print("Congratulations! You have finished the task. The solution is: ",seq)
+                            finished_count += 1
+                            solution.remove(seq)
+                self.beysian_update()
+                print(yellow("beysian update done!"))
+                print(white("{:-^50}").format("knowledge updated!"))
+                print(white(self.insighter.priors))
+                print(red("{0:-^50}".format("reset environment")))
+                obs,info = self.env.reset(seed=seed)
+                truncated ,terminated ,reward = False,False,0
         # show something, history, insighter
-        
         
     def infence_action(self,insight = None,knowledge = None,obs = None,rewards = None,terminated = None,truncated = None):
         # env_response: (obs,rewards,terminated,truncated) (from env.step()) or None

@@ -52,7 +52,7 @@ class Actioner:
                 response, *_ = self.llm.parse([],0)
                 action_list = json.loads(response['content'])
                 logger.debug(f"Action list: {action_list}")
-                action_list.sort(key=lambda x: x['step'],reverse=True)
+                action_list.sort(key=lambda x: x['step'])
                 self.action_seq = [x['action'] for x in action_list]
                 break
             except Exception as e:
@@ -63,9 +63,7 @@ class Actioner:
                 if i == 3:
                     logger.error(f"Action sequence error: {response}")
                     raise e
-        
-        
-        
+                
         logger.debug(f"Action sequence: {self.action_seq}")
 
     def __attempt__(self,step,obs,action,insight):
@@ -76,8 +74,6 @@ class Actioner:
             "insight":insight
         }
 
-    
-    
     def action(self,obs, rewards=None,terminated=None,truncated=None,**kwargs):
         if(len(self.action_seq)==0):
             self.__generate_action_seq() 
@@ -107,7 +103,12 @@ class Actioner:
             res += f"Round {i}: {round_res}\n"
         return res
     
-    
+    def set_known_solutions(self,known_solutions):
+        self.known_solutions = known_solutions
+        
+    def append_known_solutions(self,known_solution):
+        self.known_solutions.append(known_solution)
+        
     def get_success_try(self):
         res = ""
         for i, solution in enumerate(self.known_solutions):
