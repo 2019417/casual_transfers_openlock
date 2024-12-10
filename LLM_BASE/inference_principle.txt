@@ -20,21 +20,19 @@ The environment information is:
 
 [environment]
 
-The history information is:
+The history is:
 
 [history]
 
-The knowlegde information is:
+The knowlegde is:
 
 [knowledge]
 
 Now give your insight and advice. Think slowly. Think deeply. And give the best insight you have.
 your repsone is according following format.
 
-- what's the insight you get?
-- What action you think should take next time?
-- why you think the action is helpful?
-- relationship between the action and environment' response
+- The underlying principle and mechanism of the environment is. Be specific and clear.
+- What should the actioner pay attention to or do next time about environment is. Be specific and clear.
 
 each point contain 1 sentence. No need to write too much. 
 

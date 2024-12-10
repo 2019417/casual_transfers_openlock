@@ -12,9 +12,7 @@ The history of interplay between actioner and environment is recorded here
 
 [history]
 
-There are some hints for you to find out the most important aspect of the environment.
-These action sequences are recorded here.
+Now, please give out your answer about the underlying principle and mechanism of the environment and some important aspect of the environment. 
 
-[success_try]
 
-Now, please give out your answer about the underlying principle of the environment and most important aspect of the environment .
+

@@ -85,5 +85,3 @@ There are:
 2. Pull the third lever, pull the second lever, open the door. means (2, 1, 7)
 
 But the environment can be set or reset, so the solution can be different. You need to find new solutions instead of the known solutions and adopt to new environment. Some mechanism and principle are same in different environment. You should find the mechanism and principle and use them to find new solutions.
-
-

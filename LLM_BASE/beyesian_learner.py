@@ -25,7 +25,6 @@ class Learner:
         insighter_likehood = insighter_likehood.replace("[environment]",self.env_info)
         insighter_likehood = insighter_likehood.replace("[prior]",prior)
         insighter_likehood = insighter_likehood.replace("[insight]",insights)
-        insighter_likehood = insighter_likehood.replace("[success_try]",success_try)
         
         logger.debug("insighter_likehood: "+insighter_likehood)
         messages = [

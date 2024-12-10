@@ -9,7 +9,6 @@ The information about the environment is presented here:
 For actioner
 {
     "history_of_actioner": [history],
-    "success_try": [success_try],
     "advice from advior": [insight]
 }
 
