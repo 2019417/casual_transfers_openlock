@@ -51,11 +51,13 @@ class Actioner:
                 self.llm.change_messages(messages) 
                 response, *_ = self.llm.parse([],0)
                 action_list = json.loads(response['content'])
+                logger.debug(f"Action list: {action_list}")
                 action_list.sort(key=lambda x: x['step'],reverse=True)
                 self.action_seq = [x['action'] for x in action_list]
                 break
             except Exception as e:
                 print(f"action sequence error {i} time")
+                logger.error(f"Action sequence error {i} time")
                 print("try again......")
                 messages[0]['content'] += "\nMust generate action sequence format!!"
                 if i == 3:
@@ -74,6 +76,8 @@ class Actioner:
             "insight":insight
         }
 
+    
+    
     def action(self,obs, rewards=None,terminated=None,truncated=None,**kwargs):
         if(len(self.action_seq)==0):
             self.__generate_action_seq() 
@@ -102,6 +106,7 @@ class Actioner:
             round_res = str(self.history.get())
             res += f"Round {i}: {round_res}\n"
         return res
+    
     
     def get_success_try(self):
         res = ""
