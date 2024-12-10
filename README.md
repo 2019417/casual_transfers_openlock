@@ -25,6 +25,12 @@ conda install conda-forge::pybox2d
 conda install --channel conda-forge pygraphviz
 ```
 
+## if error:pyglet.canvas.xlib.NoSuchDisplayException: Cannot connect to "None"
+```bash
+xvfb-run -s "-screen 0 640x480x24" python *.py
+```
+
+
 
 # 2. code change
 
@@ -65,7 +71,7 @@ for iter_num in tqdm(range(params["num_training_iters"])):
 #OpenLockAgents_example/openlockagents/A2C/a2c_open_lock.py
 #TA是主要在原来的main()基础上改成了a2c_main_like_human(） 3为iter，可以按论文设为200，700是max_attempt
 a2c_main_like_human('CC3-CC4', 0, 'negative_immovable_unique_solutions', 3, 700, None)
-#主要修改之处是
+
 #原论文的main()
 params["num_training_trials"] = params["train_num_trials"]
 #TA实现的a2c_main_like_human(）
