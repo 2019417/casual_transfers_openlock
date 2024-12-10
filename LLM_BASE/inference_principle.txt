@@ -31,8 +31,8 @@ The knowlegde is:
 Now give your insight and advice. Think slowly. Think deeply. And give the best insight you have.
 your repsone is according following format.
 
-- The underlying principle and mechanism of the environment is. Be specific and clear.
-- What should the actioner pay attention to or do next time about environment is. Be specific and clear.
+- which color should actioner choose? one sentence, Be neat and clear. 
+- which order shoudl actioner follow? common parent or commom child. one sentence, Be neat and clear.
 
 each point contain 1 sentence. No need to write too much. 
 

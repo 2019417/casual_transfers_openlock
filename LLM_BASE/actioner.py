@@ -13,7 +13,7 @@ class Actioner:
         self.reset(env_info) 
 
     def reset(self,env_info):
-        self.history = History(5)
+        self.history = History(2)
         self.now_attempt = [] 
         self.action_seq = []
         self.insight = "No insight available"

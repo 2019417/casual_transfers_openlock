@@ -14,5 +14,11 @@ The history of interplay between actioner and environment is recorded here
 
 Now, please give out your answer about the underlying principle and mechanism of the environment and some important aspect of the environment. 
 
+Your output should be:
+
+.What is the function of the color of the levers, which color should we choose, answer with one sentence and be neat and clear. 
+.What order should we follow to get the most reward? there two patterns of the order, one of them is right, the other is wrong.
+One is the all solution have an common parents, the other is the all solution have an common child. which one is right? answer with one sentence and be neat and clear.
+
 
 

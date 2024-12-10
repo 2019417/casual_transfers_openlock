@@ -50,7 +50,7 @@ class Runner:
     def __init__(self, pattern, env_seed, env_max_step):
         env_info = load_file_from_cwd('env_info.txt')
         self.env = gym.make(id='openlockenv/OpenlockEnv-v0',
-                            pattern=pattern, seed=1, max_step=5)
+                            pattern=pattern, seed=1, max_step=3)
         self.actioner = Actioner(env_info)
         self.insighter = Insighter(env_info)
         self.learner = Learner(env_info)

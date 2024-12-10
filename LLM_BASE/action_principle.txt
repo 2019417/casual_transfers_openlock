@@ -15,7 +15,10 @@ There are some successful attempts in the history.
 There 
 
 Your output should not already exist in the solutions. You should find new solutions instead of the known solutions.
-Your output should be a list of action in json format. For example:
+Your output should be a list of action in json format. 
+Your output should be a list of action in json format. 
+Your output should be a list of action in json format. 
+For example:
 
 [
     {
