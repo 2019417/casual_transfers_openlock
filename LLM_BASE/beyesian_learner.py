@@ -35,9 +35,9 @@ class Learner:
             }
         ] 
         self.llm.change_messages(messages)
-        response,_ = self.llm.parse([],0)    
-        logger.debug("response: "+response)
-        return response
+        response, *_ = self.llm.parse([],0)    
+        logger.debug("response: "+str(response['content']))
+        return response['content']
     
     def update_prior(self,history,success_try):
         logger.info("updating prior: ")
@@ -53,9 +53,9 @@ class Learner:
         ]
         logger.debug('prior_likehood: '+prior_likehood)
         self.llm.change_messages(messages)
-        response,_ = self.llm.parse([],0)
-        logger.debug("response: "+response)
-        return response
+        response,*_ = self.llm.parse([],0)
+        logger.debug("response: "+response['content'])
+        return response['content']
        
        
        

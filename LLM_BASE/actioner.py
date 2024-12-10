@@ -8,6 +8,7 @@ import logging
 logging.config.fileConfig('logging.conf')
 logger = logging.getLogger('actioner')
 
+
 class Actioner:
     def __init__(self, env_info = None):
         self.reset(env_info) 
@@ -28,6 +29,7 @@ class Actioner:
         self.action_seq = []
         self.__step = 0
         self.now_attempt = []
+        
 
     def __generate_action_seq(self):
         logger.info("Generate new action sequence")
@@ -39,16 +41,28 @@ class Actioner:
         
         logger.debug(f"Action template: {action_template}")
         
-        messages = [{
-            'role': 'system',
-            'content': action_template
-        }]
-        self.llm.change_messages(messages) 
-        response, *_ = self.llm.parse([],0)
+
+        for i in range(10):
+            try:
+                messages = [{
+                'role': 'system',
+                'content': action_template
+                }]
+                self.llm.change_messages(messages) 
+                response, *_ = self.llm.parse([],0)
+                action_list = json.loads(response['content'])
+                action_list.sort(key=lambda x: x['step'],reverse=True)
+                self.action_seq = [x['action'] for x in action_list]
+                break
+            except Exception as e:
+                print(f"action sequence error {i} time")
+                print("try again......")
+                messages[0]['content'] += "\nMust generate action sequence format!!"
+                if i == 3:
+                    logger.error(f"Action sequence error: {response}")
+                    raise e
         
-        action_list = json.loads(response['content'])
-        action_list.sort(key=lambda x: x['step'],reverse=True)
-        self.action_seq = [x['action'] for x in action_list]
+        
         
         logger.debug(f"Action sequence: {self.action_seq}")
 
@@ -90,14 +104,17 @@ class Actioner:
         return res
     
     def get_success_try(self):
-        return self.known_solutions
+        res = ""
+        for i, solution in enumerate(self.known_solutions):
+            res += f"Solution {i}: {solution}\n"
+        return res
         
     def get_insight(self):
         return self.insight
         
     def set_insight(self,insight):
         self.insight = insight
-    
+        
     
 if __name__ == "__main__":
     actioner = Actioner()

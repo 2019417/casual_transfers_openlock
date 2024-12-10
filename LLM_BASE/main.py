@@ -1,7 +1,6 @@
 import gymnasium as gym
 import openlockenv #不加会报错
 import argparse
-
 from actioner import Actioner
 from insighter import Insighter
 
@@ -53,11 +52,11 @@ class Runner:
         truncated = False
         solution = info['solution']
         num_of_solution = len(solution)
-        print(purple("Welcome to the OpenLockEnv!"))        
-        action = self.infence_action(obs=obs)
         finished_count = 0
+        print(purple("Welcome to the OpenLockEnv!"))        
     
         while finished_count < num_of_solution:            
+            action = self.infence_action(obs=obs)
             action_sequence = []
             print(red("{0:-^50}".format("Environment start")))
             while not (terminated or truncated):
@@ -82,7 +81,8 @@ class Runner:
             print(white("{:-^50}").format("knowledge updated!"))
             print(white(self.insighter.priors))
             print(red("{0:-^50}".format("reset environment")))
-            self.env.reset()
+            obs,info = self.env.reset()
+            truncated ,terminated ,reward = False,False,0
         # show something, history, insighter
         
         
@@ -142,6 +142,16 @@ def print_obs(obs):
     print('\n'.join([name_line,color_line,state_line]))
     
     
+from tenacity import retry,stop_after_attempt,wait_random
+@retry(wait=wait_random(0.2,1),stop=stop_after_attempt(4),reraise=True)
+def random_error():
+    import random
+    print("Random error test")
+    if random.random() > 0.2:
+        raise Exception("Random error")
+    else:
+        print("Success")
+        
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -149,5 +159,8 @@ if __name__ == '__main__':
     
     runner = Runner('CC3',1,5)
     runner.play()
+    
+    # random_error()
     # print(__name__)
+
 

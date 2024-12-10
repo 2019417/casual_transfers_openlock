@@ -24,11 +24,11 @@ class Insighter:
     def build_inferece_principle(self,history):
         inference_template = self.inference_principle_template
         # inference context
-        inference_template.replace('[history]',history)
+        inference_template = inference_template.replace('[history]',history)
         # learning context
-        inference_template.replace('[item]',self.inference_principle_item)
-        inference_template.replace('[environment]',self.env_info)
-        inference_template.replace('[knowledge]',self.priors)
+        inference_template = inference_template.replace('[item]',self.inference_principle_item)
+        inference_template = inference_template.replace('[environment]',self.env_info)
+        inference_template = inference_template.replace('[knowledge]',self.priors)
         return inference_template
         
     def generate_insight(self,history):
