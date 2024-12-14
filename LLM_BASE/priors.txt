@@ -1,2 +1,3 @@
-- The function of the color of the levers is to indicate the order in which they should be pulled. We should choose the grey levers.
-- The correct order to follow to get the most reward is that all solutions have a common parent. This pattern is the right one to follow in this environment.
+- The color of the levers indicates their grouping, with white levers and grey levers forming separate groups. We should choose levers from the same color group.
+
+- The correct order to follow in order to get the most reward is to always choose levers that have a common child. This pattern has been consistently successful in finding the solution.

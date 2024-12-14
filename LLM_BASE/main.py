@@ -129,9 +129,9 @@ class Runner:
         inference_item = self.insighter.inference_principle_item
         priors = self.insighter.priors
 
-        new_inference_item = self.learner.update_insighter(
-            history, insight, inference_template, inference_item, priors, success_try)
-        self.insighter.inference_principle_item = new_inference_item
+        # new_inference_item = self.learner.update_insighter(
+        #     history, insight, inference_template, inference_item, priors, success_try)
+        # self.insighter.inference_principle_item = new_inference_item
 
         # update prior level
         new_priors = self.learner.update_prior(history, success_try)
