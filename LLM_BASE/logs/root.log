@@ -1,0 +1,1625 @@
+2024-12-12 14:46:01,448 - insighter - INFO - Generate new insight
+2024-12-12 14:46:01,448 - insighter - DEBUG - Insight template: Your task analyse the history and environment and combine the knowlegde to give insight and advice help other complete their tasks and get more helpful information about their action and environment
+
+Bacically, your task is:
+
+1. analyse the knowlegde provided to you and make connection to the history and environment.
+for example:
+what aspect of the history and environment is related to the knowlegde? what's the relationship between the knowlegde and the history and environment?
+
+2. use your thinking and understanding about knowlegde to analyse the casual relationship behind the history and environment.
+for example:
+why some case in the history is successful and some is not? what action make the case successful? what action make the case fail? What relationship between the action and environment' response have? what's is underlying mechanism behind the relationship? And how to use it?
+
+3. Based on your think and analyse, You should get some insight about the history and environment, and give advice to help other complete their tasks and offer helpful information about their action and environment. Your insight should contain the following information:
+
+- what's the insight you get? 
+- What action you think should take next time?
+- why you think the action is helpful?
+- relationship between the action and environment' response
+
+Now, It's time for you to complete the task.
+
+The environment information is:
+
+The environment is a room with serveral levers and a door. Your task is pull some levers and escape the room. 
+When you pull levers in a right order, the door will open, and you will escape. But if you pull the wrong lever or waste your step limit, you will be traped in the room. Some lever are white , some are grey. The color of the lever is also information you should pay attention to.
+
+For example, we can instance a environment as Environment A.
+
+The environment A can be described as following format. This environment have 7 levers and one door. The first lever are aranged in the top postition and its index is 0. The seventh lever's index is 6. The door's index is 7. The door is locked at the beginning. The state of lever and door are described in field 'color' ,'state', the 'color' of lever can be 'white' or 'grey'. the state of door and lever can be 0 or 1. 0 means the lever is not pulled, 1 means the lever is pulled. The state of door is 0 means the door is locked, 1 means the door is open. 
+You only have finite step to complete the escape task. In this example the limit is 3. This means you can only pull 2 lever and open the door in 3 step. If you run out of step, you will be traped in the room.
+
+[
+    {
+        'color': 'white', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'grey', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'grey', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'white', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'white', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'grey', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'white',
+         'state': np.int64(0)
+    }, 
+    {
+        'door': np.int64(0), 
+        'state': np.int64(0)
+    }
+]
+
+the step limit is 3
+The solutions of the environment A are:
+[
+    # the first solution
+    [
+        {
+            'step': 1, 
+            'action': 2 # first pull the third lever
+        }, 
+        {
+            'step': 2, 
+            'action': 5 # the pull the sixth lever
+        }, 
+        {
+            'step': 3, 
+            'action': 7 # then open the door
+        }
+    ], 
+    # the second solution
+    [
+        {
+            'step': 1, 
+            'action': 2 # first pull the third lever
+        },
+        {
+            'step': 1, 
+            'action': 1 # first pull the second lever
+        },
+        {
+            'step': 7,
+            'action': 7 # then open the door
+        }
+    ]
+    # maybe more solutions
+]
+
+the number of solutions can be more one. You should to find new solutions instead of the known solutions.
+Now we can see the environment A at least have 2 solutions
+There are:
+
+1. Pull the third lever, pull the sixth lever, open the door. means (2, 5, 7)
+2. Pull the third lever, pull the second lever, open the door. means (2, 1, 7)
+
+But the environment can be set or reset, so the solution can be different. You need to find new solutions instead of the known solutions and adopt to new environment. Some mechanism and principle are same in different environment. You should find the mechanism and principle and use them to find new solutions.
+
+
+The history is:
+
+{
+  "success_history": [
+    null,
+    null
+  ],
+  "failed_history": [
+    null,
+    null
+  ]
+}
+
+The knowlegde is:
+
+
+
+Now give your insight and advice. Think slowly. Think deeply. And give the best insight you have.
+your repsone is according following format.
+
+- which color should actioner choose? one sentence, Be neat and clear. 
+- which order shoudl actioner follow? common parent or commom child. one sentence, Be neat and clear.
+
+each point contain 1 sentence. No need to write too much. 
+
+
+
+2024-12-12 14:46:03,199 - insighter - DEBUG - Insight: - The actioner should choose the white lever.
+- The actioner should follow the common parent order.
+2024-12-12 14:46:03,199 - actioner - INFO - Generate new action sequence
+2024-12-12 14:46:03,213 - actioner - DEBUG - Action template: You are an AI robot. Your task is make action and get reward from the environment. 
+
+The environment is a room with serveral levers and a door. Your task is pull some levers and escape the room. 
+When you pull levers in a right order, the door will open, and you will escape. But if you pull the wrong lever or waste your step limit, you will be traped in the room. Some lever are white , some are grey. The color of the lever is also information you should pay attention to.
+
+For example, we can instance a environment as Environment A.
+
+The environment A can be described as following format. This environment have 7 levers and one door. The first lever are aranged in the top postition and its index is 0. The seventh lever's index is 6. The door's index is 7. The door is locked at the beginning. The state of lever and door are described in field 'color' ,'state', the 'color' of lever can be 'white' or 'grey'. the state of door and lever can be 0 or 1. 0 means the lever is not pulled, 1 means the lever is pulled. The state of door is 0 means the door is locked, 1 means the door is open. 
+You only have finite step to complete the escape task. In this example the limit is 3. This means you can only pull 2 lever and open the door in 3 step. If you run out of step, you will be traped in the room.
+
+[
+    {
+        'color': 'white', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'grey', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'grey', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'white', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'white', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'grey', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'white',
+         'state': np.int64(0)
+    }, 
+    {
+        'door': np.int64(0), 
+        'state': np.int64(0)
+    }
+]
+
+the step limit is 3
+The solutions of the environment A are:
+[
+    # the first solution
+    [
+        {
+            'step': 1, 
+            'action': 2 # first pull the third lever
+        }, 
+        {
+            'step': 2, 
+            'action': 5 # the pull the sixth lever
+        }, 
+        {
+            'step': 3, 
+            'action': 7 # then open the door
+        }
+    ], 
+    # the second solution
+    [
+        {
+            'step': 1, 
+            'action': 2 # first pull the third lever
+        },
+        {
+            'step': 1, 
+            'action': 1 # first pull the second lever
+        },
+        {
+            'step': 7,
+            'action': 7 # then open the door
+        }
+    ]
+    # maybe more solutions
+]
+
+the number of solutions can be more one. You should to find new solutions instead of the known solutions.
+Now we can see the environment A at least have 2 solutions
+There are:
+
+1. Pull the third lever, pull the sixth lever, open the door. means (2, 5, 7)
+2. Pull the third lever, pull the second lever, open the door. means (2, 1, 7)
+
+But the environment can be set or reset, so the solution can be different. You need to find new solutions instead of the known solutions and adopt to new environment. Some mechanism and principle are same in different environment. You should find the mechanism and principle and use them to find new solutions.
+
+
+You should utilize insight information provided to you. These information will tell you the 
+Here are some insights:
+
+- The actioner should choose the white lever.
+- The actioner should follow the common parent order.
+
+Now please ananlyze the insight and complete the task.
+There are some successful attempts in the history.
+
+[
+  null,
+  null
+]
+
+There 
+
+Your output should not already exist in the solutions. You should find new solutions instead of the known solutions.
+Your output should be a list of action in json format. 
+Your output should be a list of action in json format. 
+Your output should be a list of action in json format. 
+For example:
+
+[
+    {
+        "step": 1,
+        "action": action number for example 0
+    },
+    {
+        "step": 2,
+        "action": action number
+    },
+    {
+        "step": 3,
+        "action": action number
+    },
+    ....
+    {
+        "step": n,
+        "action": action number
+    }
+]
+
+
+
+2024-12-12 14:46:05,853 - actioner - ERROR - Action sequence error 0 time
+2024-12-12 14:46:12,207 - actioner - DEBUG - Action list: [{'step': 1, 'action': 0}, {'step': 2, 'action': 3}, {'step': 3, 'action': 6}]
+2024-12-12 14:46:12,207 - actioner - DEBUG - Action sequence: [0, 3, 6]
+2024-12-12 14:48:16,128 - insighter - INFO - Generate new insight
+2024-12-12 14:48:16,128 - insighter - DEBUG - Insight template: Your task analyse the history and environment and combine the knowlegde to give insight and advice help other complete their tasks and get more helpful information about their action and environment
+
+Bacically, your task is:
+
+1. analyse the knowlegde provided to you and make connection to the history and environment.
+for example:
+what aspect of the history and environment is related to the knowlegde? what's the relationship between the knowlegde and the history and environment?
+
+2. use your thinking and understanding about knowlegde to analyse the casual relationship behind the history and environment.
+for example:
+why some case in the history is successful and some is not? what action make the case successful? what action make the case fail? What relationship between the action and environment' response have? what's is underlying mechanism behind the relationship? And how to use it?
+
+3. Based on your think and analyse, You should get some insight about the history and environment, and give advice to help other complete their tasks and offer helpful information about their action and environment. Your insight should contain the following information:
+
+- what's the insight you get? 
+- What action you think should take next time?
+- why you think the action is helpful?
+- relationship between the action and environment' response
+
+Now, It's time for you to complete the task.
+
+The environment information is:
+
+The environment is a room with serveral levers and a door. Your task is pull some levers and escape the room. 
+When you pull levers in a right order, the door will open, and you will escape. But if you pull the wrong lever or waste your step limit, you will be traped in the room. Some lever are white , some are grey. The color of the lever is also information you should pay attention to.
+
+For example, we can instance a environment as Environment A.
+
+The environment A can be described as following format. This environment have 7 levers and one door. The first lever are aranged in the top postition and its index is 0. The seventh lever's index is 6. The door's index is 7. The door is locked at the beginning. The state of lever and door are described in field 'color' ,'state', the 'color' of lever can be 'white' or 'grey'. the state of door and lever can be 0 or 1. 0 means the lever is not pulled, 1 means the lever is pulled. The state of door is 0 means the door is locked, 1 means the door is open. 
+You only have finite step to complete the escape task. In this example the limit is 3. This means you can only pull 2 lever and open the door in 3 step. If you run out of step, you will be traped in the room.
+
+[
+    {
+        'color': 'white', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'grey', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'grey', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'white', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'white', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'grey', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'white',
+         'state': np.int64(0)
+    }, 
+    {
+        'door': np.int64(0), 
+        'state': np.int64(0)
+    }
+]
+
+the step limit is 3
+The solutions of the environment A are:
+[
+    # the first solution
+    [
+        {
+            'step': 1, 
+            'action': 2 # first pull the third lever
+        }, 
+        {
+            'step': 2, 
+            'action': 5 # the pull the sixth lever
+        }, 
+        {
+            'step': 3, 
+            'action': 7 # then open the door
+        }
+    ], 
+    # the second solution
+    [
+        {
+            'step': 1, 
+            'action': 2 # first pull the third lever
+        },
+        {
+            'step': 1, 
+            'action': 1 # first pull the second lever
+        },
+        {
+            'step': 7,
+            'action': 7 # then open the door
+        }
+    ]
+    # maybe more solutions
+]
+
+the number of solutions can be more one. You should to find new solutions instead of the known solutions.
+Now we can see the environment A at least have 2 solutions
+There are:
+
+1. Pull the third lever, pull the sixth lever, open the door. means (2, 5, 7)
+2. Pull the third lever, pull the second lever, open the door. means (2, 1, 7)
+
+But the environment can be set or reset, so the solution can be different. You need to find new solutions instead of the known solutions and adopt to new environment. Some mechanism and principle are same in different environment. You should find the mechanism and principle and use them to find new solutions.
+
+
+The history is:
+
+{
+  "success_history": [
+    null,
+    null
+  ],
+  "failed_history": [
+    null,
+    null
+  ]
+}
+
+The knowlegde is:
+
+
+
+Now give your insight and advice. Think slowly. Think deeply. And give the best insight you have.
+your repsone is according following format.
+
+- which color should actioner choose? one sentence, Be neat and clear. 
+- which order shoudl actioner follow? common parent or commom child. one sentence, Be neat and clear.
+
+each point contain 1 sentence. No need to write too much. 
+
+
+
+2024-12-12 14:48:17,803 - insighter - DEBUG - Insight: - The actioner should choose the white levers.
+- The actioner should follow the common child order.
+2024-12-12 14:48:19,933 - insighter - INFO - Generate new insight
+2024-12-12 14:48:19,933 - insighter - DEBUG - Insight template: Your task analyse the history and environment and combine the knowlegde to give insight and advice help other complete their tasks and get more helpful information about their action and environment
+
+Bacically, your task is:
+
+1. analyse the knowlegde provided to you and make connection to the history and environment.
+for example:
+what aspect of the history and environment is related to the knowlegde? what's the relationship between the knowlegde and the history and environment?
+
+2. use your thinking and understanding about knowlegde to analyse the casual relationship behind the history and environment.
+for example:
+why some case in the history is successful and some is not? what action make the case successful? what action make the case fail? What relationship between the action and environment' response have? what's is underlying mechanism behind the relationship? And how to use it?
+
+3. Based on your think and analyse, You should get some insight about the history and environment, and give advice to help other complete their tasks and offer helpful information about their action and environment. Your insight should contain the following information:
+
+- what's the insight you get? 
+- What action you think should take next time?
+- why you think the action is helpful?
+- relationship between the action and environment' response
+
+Now, It's time for you to complete the task.
+
+The environment information is:
+
+The environment is a room with serveral levers and a door. Your task is pull some levers and escape the room. 
+When you pull levers in a right order, the door will open, and you will escape. But if you pull the wrong lever or waste your step limit, you will be traped in the room. Some lever are white , some are grey. The color of the lever is also information you should pay attention to.
+
+For example, we can instance a environment as Environment A.
+
+The environment A can be described as following format. This environment have 7 levers and one door. The first lever are aranged in the top postition and its index is 0. The seventh lever's index is 6. The door's index is 7. The door is locked at the beginning. The state of lever and door are described in field 'color' ,'state', the 'color' of lever can be 'white' or 'grey'. the state of door and lever can be 0 or 1. 0 means the lever is not pulled, 1 means the lever is pulled. The state of door is 0 means the door is locked, 1 means the door is open. 
+You only have finite step to complete the escape task. In this example the limit is 3. This means you can only pull 2 lever and open the door in 3 step. If you run out of step, you will be traped in the room.
+
+[
+    {
+        'color': 'white', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'grey', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'grey', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'white', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'white', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'grey', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'white',
+         'state': np.int64(0)
+    }, 
+    {
+        'door': np.int64(0), 
+        'state': np.int64(0)
+    }
+]
+
+the step limit is 3
+The solutions of the environment A are:
+[
+    # the first solution
+    [
+        {
+            'step': 1, 
+            'action': 2 # first pull the third lever
+        }, 
+        {
+            'step': 2, 
+            'action': 5 # the pull the sixth lever
+        }, 
+        {
+            'step': 3, 
+            'action': 7 # then open the door
+        }
+    ], 
+    # the second solution
+    [
+        {
+            'step': 1, 
+            'action': 2 # first pull the third lever
+        },
+        {
+            'step': 1, 
+            'action': 1 # first pull the second lever
+        },
+        {
+            'step': 7,
+            'action': 7 # then open the door
+        }
+    ]
+    # maybe more solutions
+]
+
+the number of solutions can be more one. You should to find new solutions instead of the known solutions.
+Now we can see the environment A at least have 2 solutions
+There are:
+
+1. Pull the third lever, pull the sixth lever, open the door. means (2, 5, 7)
+2. Pull the third lever, pull the second lever, open the door. means (2, 1, 7)
+
+But the environment can be set or reset, so the solution can be different. You need to find new solutions instead of the known solutions and adopt to new environment. Some mechanism and principle are same in different environment. You should find the mechanism and principle and use them to find new solutions.
+
+
+The history is:
+
+{
+  "success_history": [
+    null,
+    null
+  ],
+  "failed_history": [
+    null,
+    null
+  ]
+}
+
+The knowlegde is:
+
+
+
+Now give your insight and advice. Think slowly. Think deeply. And give the best insight you have.
+your repsone is according following format.
+
+- which color should actioner choose? one sentence, Be neat and clear. 
+- which order shoudl actioner follow? common parent or commom child. one sentence, Be neat and clear.
+
+each point contain 1 sentence. No need to write too much. 
+
+
+
+2024-12-12 14:48:21,967 - insighter - DEBUG - Insight: 
+- The actioner should choose the grey lever.
+- The actioner should follow the common child order.
+2024-12-12 14:48:23,996 - insighter - INFO - Generate new insight
+2024-12-12 14:48:23,996 - insighter - DEBUG - Insight template: Your task analyse the history and environment and combine the knowlegde to give insight and advice help other complete their tasks and get more helpful information about their action and environment
+
+Bacically, your task is:
+
+1. analyse the knowlegde provided to you and make connection to the history and environment.
+for example:
+what aspect of the history and environment is related to the knowlegde? what's the relationship between the knowlegde and the history and environment?
+
+2. use your thinking and understanding about knowlegde to analyse the casual relationship behind the history and environment.
+for example:
+why some case in the history is successful and some is not? what action make the case successful? what action make the case fail? What relationship between the action and environment' response have? what's is underlying mechanism behind the relationship? And how to use it?
+
+3. Based on your think and analyse, You should get some insight about the history and environment, and give advice to help other complete their tasks and offer helpful information about their action and environment. Your insight should contain the following information:
+
+- what's the insight you get? 
+- What action you think should take next time?
+- why you think the action is helpful?
+- relationship between the action and environment' response
+
+Now, It's time for you to complete the task.
+
+The environment information is:
+
+The environment is a room with serveral levers and a door. Your task is pull some levers and escape the room. 
+When you pull levers in a right order, the door will open, and you will escape. But if you pull the wrong lever or waste your step limit, you will be traped in the room. Some lever are white , some are grey. The color of the lever is also information you should pay attention to.
+
+For example, we can instance a environment as Environment A.
+
+The environment A can be described as following format. This environment have 7 levers and one door. The first lever are aranged in the top postition and its index is 0. The seventh lever's index is 6. The door's index is 7. The door is locked at the beginning. The state of lever and door are described in field 'color' ,'state', the 'color' of lever can be 'white' or 'grey'. the state of door and lever can be 0 or 1. 0 means the lever is not pulled, 1 means the lever is pulled. The state of door is 0 means the door is locked, 1 means the door is open. 
+You only have finite step to complete the escape task. In this example the limit is 3. This means you can only pull 2 lever and open the door in 3 step. If you run out of step, you will be traped in the room.
+
+[
+    {
+        'color': 'white', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'grey', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'grey', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'white', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'white', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'grey', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'white',
+         'state': np.int64(0)
+    }, 
+    {
+        'door': np.int64(0), 
+        'state': np.int64(0)
+    }
+]
+
+the step limit is 3
+The solutions of the environment A are:
+[
+    # the first solution
+    [
+        {
+            'step': 1, 
+            'action': 2 # first pull the third lever
+        }, 
+        {
+            'step': 2, 
+            'action': 5 # the pull the sixth lever
+        }, 
+        {
+            'step': 3, 
+            'action': 7 # then open the door
+        }
+    ], 
+    # the second solution
+    [
+        {
+            'step': 1, 
+            'action': 2 # first pull the third lever
+        },
+        {
+            'step': 1, 
+            'action': 1 # first pull the second lever
+        },
+        {
+            'step': 7,
+            'action': 7 # then open the door
+        }
+    ]
+    # maybe more solutions
+]
+
+the number of solutions can be more one. You should to find new solutions instead of the known solutions.
+Now we can see the environment A at least have 2 solutions
+There are:
+
+1. Pull the third lever, pull the sixth lever, open the door. means (2, 5, 7)
+2. Pull the third lever, pull the second lever, open the door. means (2, 1, 7)
+
+But the environment can be set or reset, so the solution can be different. You need to find new solutions instead of the known solutions and adopt to new environment. Some mechanism and principle are same in different environment. You should find the mechanism and principle and use them to find new solutions.
+
+
+The history is:
+
+{
+  "success_history": [
+    null,
+    null
+  ],
+  "failed_history": [
+    null,
+    null
+  ]
+}
+
+The knowlegde is:
+
+
+
+Now give your insight and advice. Think slowly. Think deeply. And give the best insight you have.
+your repsone is according following format.
+
+- which color should actioner choose? one sentence, Be neat and clear. 
+- which order shoudl actioner follow? common parent or commom child. one sentence, Be neat and clear.
+
+each point contain 1 sentence. No need to write too much. 
+
+
+
+2024-12-12 14:48:25,546 - insighter - DEBUG - Insight: - The actioner should choose the grey lever.
+- The actioner should follow the order of common parent.
+2024-12-12 14:48:25,546 - actioner - INFO - Generate new action sequence
+2024-12-12 14:48:25,546 - actioner - DEBUG - Action template: You are an AI robot. Your task is make action and get reward from the environment. 
+
+The environment is a room with serveral levers and a door. Your task is pull some levers and escape the room. 
+When you pull levers in a right order, the door will open, and you will escape. But if you pull the wrong lever or waste your step limit, you will be traped in the room. Some lever are white , some are grey. The color of the lever is also information you should pay attention to.
+
+For example, we can instance a environment as Environment A.
+
+The environment A can be described as following format. This environment have 7 levers and one door. The first lever are aranged in the top postition and its index is 0. The seventh lever's index is 6. The door's index is 7. The door is locked at the beginning. The state of lever and door are described in field 'color' ,'state', the 'color' of lever can be 'white' or 'grey'. the state of door and lever can be 0 or 1. 0 means the lever is not pulled, 1 means the lever is pulled. The state of door is 0 means the door is locked, 1 means the door is open. 
+You only have finite step to complete the escape task. In this example the limit is 3. This means you can only pull 2 lever and open the door in 3 step. If you run out of step, you will be traped in the room.
+
+[
+    {
+        'color': 'white', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'grey', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'grey', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'white', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'white', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'grey', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'white',
+         'state': np.int64(0)
+    }, 
+    {
+        'door': np.int64(0), 
+        'state': np.int64(0)
+    }
+]
+
+the step limit is 3
+The solutions of the environment A are:
+[
+    # the first solution
+    [
+        {
+            'step': 1, 
+            'action': 2 # first pull the third lever
+        }, 
+        {
+            'step': 2, 
+            'action': 5 # the pull the sixth lever
+        }, 
+        {
+            'step': 3, 
+            'action': 7 # then open the door
+        }
+    ], 
+    # the second solution
+    [
+        {
+            'step': 1, 
+            'action': 2 # first pull the third lever
+        },
+        {
+            'step': 1, 
+            'action': 1 # first pull the second lever
+        },
+        {
+            'step': 7,
+            'action': 7 # then open the door
+        }
+    ]
+    # maybe more solutions
+]
+
+the number of solutions can be more one. You should to find new solutions instead of the known solutions.
+Now we can see the environment A at least have 2 solutions
+There are:
+
+1. Pull the third lever, pull the sixth lever, open the door. means (2, 5, 7)
+2. Pull the third lever, pull the second lever, open the door. means (2, 1, 7)
+
+But the environment can be set or reset, so the solution can be different. You need to find new solutions instead of the known solutions and adopt to new environment. Some mechanism and principle are same in different environment. You should find the mechanism and principle and use them to find new solutions.
+
+
+You should utilize insight information provided to you. These information will tell you the 
+Here are some insights:
+
+- The actioner should choose the grey lever.
+- The actioner should follow the order of common parent.
+
+Now please ananlyze the insight and complete the task.
+There are some successful attempts in the history.
+
+[
+  null,
+  null
+]
+
+There 
+
+Your output should not already exist in the solutions. You should find new solutions instead of the known solutions.
+Your output should be a list of action in json format. 
+Your output should be a list of action in json format. 
+Your output should be a list of action in json format. 
+For example:
+
+[
+    {
+        "step": 1,
+        "action": action number for example 0
+    },
+    {
+        "step": 2,
+        "action": action number
+    },
+    {
+        "step": 3,
+        "action": action number
+    },
+    ....
+    {
+        "step": n,
+        "action": action number
+    }
+]
+
+
+
+2024-12-12 14:48:27,698 - actioner - DEBUG - Action list: [{'step': 1, 'action': 2}, {'step': 2, 'action': 5}, {'step': 3, 'action': 3}]
+2024-12-12 14:48:27,698 - actioner - DEBUG - Action sequence: [2, 5, 3]
+2024-12-12 14:48:27,698 - actioner - INFO - Task terminated or truncated
+2024-12-12 14:48:27,698 - actioner - INFO - Rewards: 1
+2024-12-12 14:48:27,698 - actioner - INFO - Now Action sequence: [{'round': 0, 'step': 1, 'obs': ({'color': 'white', 'state': np.int64(0)}, {'color': 'grey', 'state': np.int64(0)}, {'color': 'white', 'state': np.int64(0)}, {'color': 'white', 'state': np.int64(0)}, {'color': 'grey', 'state': np.int64(0)}, {'color': 'white', 'state': np.int64(0)}, {'color': 'grey', 'state': np.int64(0)}, {'door': np.int64(0), 'state': np.int64(0)}), 'action': 0, 'insight': '- The actioner should choose the white lever.\n- The actioner should follow the common parent order.'}, {'round': 0, 'step': 2, 'obs': ({'color': 'white', 'state': np.int64(0)}, {'color': 'grey', 'state': np.int64(0)}, {'color': 'white', 'state': np.int64(0)}, {'color': 'white', 'state': np.int64(0)}, {'color': 'grey', 'state': np.int64(1)}, {'color': 'white', 'state': np.int64(0)}, {'color': 'grey', 'state': np.int64(0)}, {'door': np.int64(0), 'state': np.int64(0)}), 'action': 3, 'insight': '- The actioner should choose the white levers.\n- The actioner should follow the common child order.'}, {'round': 0, 'step': 3, 'obs': ({'color': 'white', 'state': np.int64(0)}, {'color': 'grey', 'state': np.int64(0)}, {'color': 'white', 'state': np.int64(0)}, {'color': 'white', 'state': np.int64(0)}, {'color': 'grey', 'state': np.int64(1)}, {'color': 'white', 'state': np.int64(0)}, {'color': 'grey', 'state': np.int64(1)}, {'door': np.int64(0), 'state': np.int64(0)}), 'action': 6, 'insight': '\n- The actioner should choose the grey lever.\n- The actioner should follow the common child order.'}]
+2024-12-12 14:48:27,698 - beyesian_learner - INFO - updating prior: 
+2024-12-12 14:48:27,698 - beyesian_learner - DEBUG - prior_likehood: Your task is observe the interplay between the actioner and the environment and try to find the most important aspect of the environment that the actioner should pay attention to. 
+For example, 
+In an environment where the actioner is a robot and the environment is a maze, the most important aspect of the environment is the maze itself. The robot should pay attention to the maze and try to find the way to the exit.
+
+In an environment where goal is trying to get most the reward of the environment. You should pay attention to the reward of the environment and find out what is the underlying principle of the reward.
+
+Now the environment info is presented here.
+
+The environment is a room with serveral levers and a door. Your task is pull some levers and escape the room. 
+When you pull levers in a right order, the door will open, and you will escape. But if you pull the wrong lever or waste your step limit, you will be traped in the room. Some lever are white , some are grey. The color of the lever is also information you should pay attention to.
+
+For example, we can instance a environment as Environment A.
+
+The environment A can be described as following format. This environment have 7 levers and one door. The first lever are aranged in the top postition and its index is 0. The seventh lever's index is 6. The door's index is 7. The door is locked at the beginning. The state of lever and door are described in field 'color' ,'state', the 'color' of lever can be 'white' or 'grey'. the state of door and lever can be 0 or 1. 0 means the lever is not pulled, 1 means the lever is pulled. The state of door is 0 means the door is locked, 1 means the door is open. 
+You only have finite step to complete the escape task. In this example the limit is 3. This means you can only pull 2 lever and open the door in 3 step. If you run out of step, you will be traped in the room.
+
+[
+    {
+        'color': 'white', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'grey', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'grey', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'white', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'white', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'grey', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'white',
+         'state': np.int64(0)
+    }, 
+    {
+        'door': np.int64(0), 
+        'state': np.int64(0)
+    }
+]
+
+the step limit is 3
+The solutions of the environment A are:
+[
+    # the first solution
+    [
+        {
+            'step': 1, 
+            'action': 2 # first pull the third lever
+        }, 
+        {
+            'step': 2, 
+            'action': 5 # the pull the sixth lever
+        }, 
+        {
+            'step': 3, 
+            'action': 7 # then open the door
+        }
+    ], 
+    # the second solution
+    [
+        {
+            'step': 1, 
+            'action': 2 # first pull the third lever
+        },
+        {
+            'step': 1, 
+            'action': 1 # first pull the second lever
+        },
+        {
+            'step': 7,
+            'action': 7 # then open the door
+        }
+    ]
+    # maybe more solutions
+]
+
+the number of solutions can be more one. You should to find new solutions instead of the known solutions.
+Now we can see the environment A at least have 2 solutions
+There are:
+
+1. Pull the third lever, pull the sixth lever, open the door. means (2, 5, 7)
+2. Pull the third lever, pull the second lever, open the door. means (2, 1, 7)
+
+But the environment can be set or reset, so the solution can be different. You need to find new solutions instead of the known solutions and adopt to new environment. Some mechanism and principle are same in different environment. You should find the mechanism and principle and use them to find new solutions.
+
+
+The history of interplay between actioner and environment is recorded here
+
+{
+  "success_history": [
+    [
+      [
+        {
+          "round": 0,
+          "step": 1,
+          "obs": [
+            {
+              "color": "white",
+              "state": 0
+            },
+            {
+              "color": "grey",
+              "state": 0
+            },
+            {
+              "color": "white",
+              "state": 0
+            },
+            {
+              "color": "white",
+              "state": 0
+            },
+            {
+              "color": "grey",
+              "state": 0
+            },
+            {
+              "color": "white",
+              "state": 0
+            },
+            {
+              "color": "grey",
+              "state": 0
+            },
+            {
+              "door": 0,
+              "state": 0
+            }
+          ],
+          "action": 0,
+          "insight": "- The actioner should choose the white lever.\n- The actioner should follow the common parent order."
+        },
+        {
+          "round": 0,
+          "step": 2,
+          "obs": [
+            {
+              "color": "white",
+              "state": 0
+            },
+            {
+              "color": "grey",
+              "state": 0
+            },
+            {
+              "color": "white",
+              "state": 0
+            },
+            {
+              "color": "white",
+              "state": 0
+            },
+            {
+              "color": "grey",
+              "state": 1
+            },
+            {
+              "color": "white",
+              "state": 0
+            },
+            {
+              "color": "grey",
+              "state": 0
+            },
+            {
+              "door": 0,
+              "state": 0
+            }
+          ],
+          "action": 3,
+          "insight": "- The actioner should choose the white levers.\n- The actioner should follow the common child order."
+        },
+        {
+          "round": 0,
+          "step": 3,
+          "obs": [
+            {
+              "color": "white",
+              "state": 0
+            },
+            {
+              "color": "grey",
+              "state": 0
+            },
+            {
+              "color": "white",
+              "state": 0
+            },
+            {
+              "color": "white",
+              "state": 0
+            },
+            {
+              "color": "grey",
+              "state": 1
+            },
+            {
+              "color": "white",
+              "state": 0
+            },
+            {
+              "color": "grey",
+              "state": 1
+            },
+            {
+              "door": 0,
+              "state": 0
+            }
+          ],
+          "action": 6,
+          "insight": "\n- The actioner should choose the grey lever.\n- The actioner should follow the common child order."
+        }
+      ]
+    ],
+    null
+  ],
+  "failed_history": [
+    null,
+    null
+  ]
+}
+
+Now, please give out your answer about the underlying principle and mechanism of the environment and some important aspect of the environment. 
+
+Your output should be:
+
+.What is the function of the color of the levers, which color should we choose, answer with one sentence and be neat and clear. 
+.What order should we follow to get the most reward? there two patterns of the order, one of them is right, the other is wrong.
+One is the all solution have an common parents, the other is the all solution have an common child. which one is right? answer with one sentence and be neat and clear.
+
+
+
+
+2024-12-12 14:48:29,915 - beyesian_learner - DEBUG - response: - The color of the levers indicates their grouping, with white levers and grey levers forming separate groups. We should choose levers from the same color group.
+
+- The correct order to follow in order to get the most reward is to always choose levers that have a common child. This pattern has been consistently successful in finding the solution.
+2024-12-12 14:48:29,923 - insighter - INFO - Generate new insight
+2024-12-12 14:48:29,923 - insighter - DEBUG - Insight template: Your task analyse the history and environment and combine the knowlegde to give insight and advice help other complete their tasks and get more helpful information about their action and environment
+
+Bacically, your task is:
+
+1. analyse the knowlegde provided to you and make connection to the history and environment.
+for example:
+what aspect of the history and environment is related to the knowlegde? what's the relationship between the knowlegde and the history and environment?
+
+2. use your thinking and understanding about knowlegde to analyse the casual relationship behind the history and environment.
+for example:
+why some case in the history is successful and some is not? what action make the case successful? what action make the case fail? What relationship between the action and environment' response have? what's is underlying mechanism behind the relationship? And how to use it?
+
+3. Based on your think and analyse, You should get some insight about the history and environment, and give advice to help other complete their tasks and offer helpful information about their action and environment. Your insight should contain the following information:
+
+- what's the insight you get? 
+- What action you think should take next time?
+- why you think the action is helpful?
+- relationship between the action and environment' response
+
+Now, It's time for you to complete the task.
+
+The environment information is:
+
+The environment is a room with serveral levers and a door. Your task is pull some levers and escape the room. 
+When you pull levers in a right order, the door will open, and you will escape. But if you pull the wrong lever or waste your step limit, you will be traped in the room. Some lever are white , some are grey. The color of the lever is also information you should pay attention to.
+
+For example, we can instance a environment as Environment A.
+
+The environment A can be described as following format. This environment have 7 levers and one door. The first lever are aranged in the top postition and its index is 0. The seventh lever's index is 6. The door's index is 7. The door is locked at the beginning. The state of lever and door are described in field 'color' ,'state', the 'color' of lever can be 'white' or 'grey'. the state of door and lever can be 0 or 1. 0 means the lever is not pulled, 1 means the lever is pulled. The state of door is 0 means the door is locked, 1 means the door is open. 
+You only have finite step to complete the escape task. In this example the limit is 3. This means you can only pull 2 lever and open the door in 3 step. If you run out of step, you will be traped in the room.
+
+[
+    {
+        'color': 'white', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'grey', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'grey', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'white', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'white', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'grey', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'white',
+         'state': np.int64(0)
+    }, 
+    {
+        'door': np.int64(0), 
+        'state': np.int64(0)
+    }
+]
+
+the step limit is 3
+The solutions of the environment A are:
+[
+    # the first solution
+    [
+        {
+            'step': 1, 
+            'action': 2 # first pull the third lever
+        }, 
+        {
+            'step': 2, 
+            'action': 5 # the pull the sixth lever
+        }, 
+        {
+            'step': 3, 
+            'action': 7 # then open the door
+        }
+    ], 
+    # the second solution
+    [
+        {
+            'step': 1, 
+            'action': 2 # first pull the third lever
+        },
+        {
+            'step': 1, 
+            'action': 1 # first pull the second lever
+        },
+        {
+            'step': 7,
+            'action': 7 # then open the door
+        }
+    ]
+    # maybe more solutions
+]
+
+the number of solutions can be more one. You should to find new solutions instead of the known solutions.
+Now we can see the environment A at least have 2 solutions
+There are:
+
+1. Pull the third lever, pull the sixth lever, open the door. means (2, 5, 7)
+2. Pull the third lever, pull the second lever, open the door. means (2, 1, 7)
+
+But the environment can be set or reset, so the solution can be different. You need to find new solutions instead of the known solutions and adopt to new environment. Some mechanism and principle are same in different environment. You should find the mechanism and principle and use them to find new solutions.
+
+
+The history is:
+
+{
+  "success_history": [
+    [
+      [
+        {
+          "round": 0,
+          "step": 1,
+          "obs": [
+            {
+              "color": "white",
+              "state": 0
+            },
+            {
+              "color": "grey",
+              "state": 0
+            },
+            {
+              "color": "white",
+              "state": 0
+            },
+            {
+              "color": "white",
+              "state": 0
+            },
+            {
+              "color": "grey",
+              "state": 0
+            },
+            {
+              "color": "white",
+              "state": 0
+            },
+            {
+              "color": "grey",
+              "state": 0
+            },
+            {
+              "door": 0,
+              "state": 0
+            }
+          ],
+          "action": 0,
+          "insight": "- The actioner should choose the white lever.\n- The actioner should follow the common parent order."
+        },
+        {
+          "round": 0,
+          "step": 2,
+          "obs": [
+            {
+              "color": "white",
+              "state": 0
+            },
+            {
+              "color": "grey",
+              "state": 0
+            },
+            {
+              "color": "white",
+              "state": 0
+            },
+            {
+              "color": "white",
+              "state": 0
+            },
+            {
+              "color": "grey",
+              "state": 1
+            },
+            {
+              "color": "white",
+              "state": 0
+            },
+            {
+              "color": "grey",
+              "state": 0
+            },
+            {
+              "door": 0,
+              "state": 0
+            }
+          ],
+          "action": 3,
+          "insight": "- The actioner should choose the white levers.\n- The actioner should follow the common child order."
+        },
+        {
+          "round": 0,
+          "step": 3,
+          "obs": [
+            {
+              "color": "white",
+              "state": 0
+            },
+            {
+              "color": "grey",
+              "state": 0
+            },
+            {
+              "color": "white",
+              "state": 0
+            },
+            {
+              "color": "white",
+              "state": 0
+            },
+            {
+              "color": "grey",
+              "state": 1
+            },
+            {
+              "color": "white",
+              "state": 0
+            },
+            {
+              "color": "grey",
+              "state": 1
+            },
+            {
+              "door": 0,
+              "state": 0
+            }
+          ],
+          "action": 6,
+          "insight": "\n- The actioner should choose the grey lever.\n- The actioner should follow the common child order."
+        }
+      ]
+    ],
+    null
+  ],
+  "failed_history": [
+    null,
+    null
+  ]
+}
+
+The knowlegde is:
+
+- The color of the levers indicates their grouping, with white levers and grey levers forming separate groups. We should choose levers from the same color group.
+
+- The correct order to follow in order to get the most reward is to always choose levers that have a common child. This pattern has been consistently successful in finding the solution.
+
+Now give your insight and advice. Think slowly. Think deeply. And give the best insight you have.
+your repsone is according following format.
+
+- which color should actioner choose? one sentence, Be neat and clear. 
+- which order shoudl actioner follow? common parent or commom child. one sentence, Be neat and clear.
+
+each point contain 1 sentence. No need to write too much. 
+
+
+
+2024-12-12 14:48:32,037 - insighter - DEBUG - Insight: - The actioner should choose levers from the same color group, either white or grey.
+- The actioner should follow the common child order to maximize the chances of finding the solution.
+2024-12-12 14:48:32,037 - actioner - INFO - Generate new action sequence
+2024-12-12 14:48:32,037 - actioner - DEBUG - Action template: You are an AI robot. Your task is make action and get reward from the environment. 
+
+The environment is a room with serveral levers and a door. Your task is pull some levers and escape the room. 
+When you pull levers in a right order, the door will open, and you will escape. But if you pull the wrong lever or waste your step limit, you will be traped in the room. Some lever are white , some are grey. The color of the lever is also information you should pay attention to.
+
+For example, we can instance a environment as Environment A.
+
+The environment A can be described as following format. This environment have 7 levers and one door. The first lever are aranged in the top postition and its index is 0. The seventh lever's index is 6. The door's index is 7. The door is locked at the beginning. The state of lever and door are described in field 'color' ,'state', the 'color' of lever can be 'white' or 'grey'. the state of door and lever can be 0 or 1. 0 means the lever is not pulled, 1 means the lever is pulled. The state of door is 0 means the door is locked, 1 means the door is open. 
+You only have finite step to complete the escape task. In this example the limit is 3. This means you can only pull 2 lever and open the door in 3 step. If you run out of step, you will be traped in the room.
+
+[
+    {
+        'color': 'white', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'grey', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'grey', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'white', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'white', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'grey', 
+        'state': np.int64(0)
+    }, 
+    {
+        'color': 'white',
+         'state': np.int64(0)
+    }, 
+    {
+        'door': np.int64(0), 
+        'state': np.int64(0)
+    }
+]
+
+the step limit is 3
+The solutions of the environment A are:
+[
+    # the first solution
+    [
+        {
+            'step': 1, 
+            'action': 2 # first pull the third lever
+        }, 
+        {
+            'step': 2, 
+            'action': 5 # the pull the sixth lever
+        }, 
+        {
+            'step': 3, 
+            'action': 7 # then open the door
+        }
+    ], 
+    # the second solution
+    [
+        {
+            'step': 1, 
+            'action': 2 # first pull the third lever
+        },
+        {
+            'step': 1, 
+            'action': 1 # first pull the second lever
+        },
+        {
+            'step': 7,
+            'action': 7 # then open the door
+        }
+    ]
+    # maybe more solutions
+]
+
+the number of solutions can be more one. You should to find new solutions instead of the known solutions.
+Now we can see the environment A at least have 2 solutions
+There are:
+
+1. Pull the third lever, pull the sixth lever, open the door. means (2, 5, 7)
+2. Pull the third lever, pull the second lever, open the door. means (2, 1, 7)
+
+But the environment can be set or reset, so the solution can be different. You need to find new solutions instead of the known solutions and adopt to new environment. Some mechanism and principle are same in different environment. You should find the mechanism and principle and use them to find new solutions.
+
+
+You should utilize insight information provided to you. These information will tell you the 
+Here are some insights:
+
+- The actioner should choose levers from the same color group, either white or grey.
+- The actioner should follow the common child order to maximize the chances of finding the solution.
+
+Now please ananlyze the insight and complete the task.
+There are some successful attempts in the history.
+
+[
+  [
+    [
+      {
+        "round": 0,
+        "step": 1,
+        "obs": [
+          {
+            "color": "white",
+            "state": 0
+          },
+          {
+            "color": "grey",
+            "state": 0
+          },
+          {
+            "color": "white",
+            "state": 0
+          },
+          {
+            "color": "white",
+            "state": 0
+          },
+          {
+            "color": "grey",
+            "state": 0
+          },
+          {
+            "color": "white",
+            "state": 0
+          },
+          {
+            "color": "grey",
+            "state": 0
+          },
+          {
+            "door": 0,
+            "state": 0
+          }
+        ],
+        "action": 0,
+        "insight": "- The actioner should choose the white lever.\n- The actioner should follow the common parent order."
+      },
+      {
+        "round": 0,
+        "step": 2,
+        "obs": [
+          {
+            "color": "white",
+            "state": 0
+          },
+          {
+            "color": "grey",
+            "state": 0
+          },
+          {
+            "color": "white",
+            "state": 0
+          },
+          {
+            "color": "white",
+            "state": 0
+          },
+          {
+            "color": "grey",
+            "state": 1
+          },
+          {
+            "color": "white",
+            "state": 0
+          },
+          {
+            "color": "grey",
+            "state": 0
+          },
+          {
+            "door": 0,
+            "state": 0
+          }
+        ],
+        "action": 3,
+        "insight": "- The actioner should choose the white levers.\n- The actioner should follow the common child order."
+      },
+      {
+        "round": 0,
+        "step": 3,
+        "obs": [
+          {
+            "color": "white",
+            "state": 0
+          },
+          {
+            "color": "grey",
+            "state": 0
+          },
+          {
+            "color": "white",
+            "state": 0
+          },
+          {
+            "color": "white",
+            "state": 0
+          },
+          {
+            "color": "grey",
+            "state": 1
+          },
+          {
+            "color": "white",
+            "state": 0
+          },
+          {
+            "color": "grey",
+            "state": 1
+          },
+          {
+            "door": 0,
+            "state": 0
+          }
+        ],
+        "action": 6,
+        "insight": "\n- The actioner should choose the grey lever.\n- The actioner should follow the common child order."
+      }
+    ]
+  ],
+  null
+]
+
+There 
+
+Your output should not already exist in the solutions. You should find new solutions instead of the known solutions.
+Your output should be a list of action in json format. 
+Your output should be a list of action in json format. 
+Your output should be a list of action in json format. 
+For example:
+
+[
+    {
+        "step": 1,
+        "action": action number for example 0
+    },
+    {
+        "step": 2,
+        "action": action number
+    },
+    {
+        "step": 3,
+        "action": action number
+    },
+    ....
+    {
+        "step": n,
+        "action": action number
+    }
+]
+
+
+
+2024-12-12 14:48:33,790 - actioner - DEBUG - Action list: [{'step': 1, 'action': 1}, {'step': 2, 'action': 3}, {'step': 3, 'action': 6}]
+2024-12-12 14:48:33,790 - actioner - DEBUG - Action sequence: [1, 3, 6]
