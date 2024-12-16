@@ -1,5 +1,5 @@
-2024-12-16 13:47:29,925 - insighter - INFO - Generate new insight
-2024-12-16 13:47:29,925 - insighter - DEBUG - Insight template: Your task analyse the history and environment and combine the knowlegde to give insight and advice help other complete their tasks and get more helpful information about their action and environment
+2024-12-16 13:55:18,277 - insighter - INFO - Generate new insight
+2024-12-16 13:55:18,277 - insighter - DEBUG - Insight template: Your task analyse the history and environment and combine the knowlegde to give insight and advice help other complete their tasks and get more helpful information about their action and environment
 
 Bacically, your task is:
 
@@ -138,4 +138,4 @@ each point contain 1 sentence. No need to write too much.
 
 
 
-2024-12-16 13:47:29,925 - insighter - DEBUG - Insight: {'error': 'Model not supported', 'total_tokens': 0}
+2024-12-16 13:55:19,139 - insighter - DEBUG - Insight: {'error': "Error code: 404 - {'timestamp': '2024-12-16T05:55:17.926+00:00', 'path': '/chat/completions', 'status': 404, 'error': 'Not Found', 'requestId': 'fc705851-216451'}", 'total_tokens': 0}

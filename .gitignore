@@ -13,3 +13,6 @@ __pycache__/
 tests/
 OpenLockRLResults/
 
+#config 
+config.json
+

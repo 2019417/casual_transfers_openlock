@@ -1,5 +1,5 @@
-2024-12-16 13:47:29,925 - actioner - INFO - Generate new action sequence
-2024-12-16 13:47:29,925 - actioner - DEBUG - Action template: You are an AI robot. Your task is make action and get reward from the environment. 
+2024-12-16 13:55:19,139 - actioner - INFO - Generate new action sequence
+2024-12-16 13:55:19,139 - actioner - DEBUG - Action template: You are an AI robot. Your task is make action and get reward from the environment. 
 
 The environment is a room with serveral levers and a door. Your task is pull some levers and escape the room. 
 When you pull levers in a right order, the door will open, and you will escape. But if you pull the wrong lever or waste your step limit, you will be traped in the room. Some lever are white , some are grey. The color of the lever is also information you should pay attention to.
@@ -93,7 +93,7 @@ But the environment can be set or reset, so the solution can be different. You n
 You should utilize insight information provided to you. These information will tell you the 
 Here are some insights:
 
-{'error': 'Model not supported', 'total_tokens': 0}
+{'error': "Error code: 404 - {'timestamp': '2024-12-16T05:55:17.926+00:00', 'path': '/chat/completions', 'status': 404, 'error': 'Not Found', 'requestId': 'fc705851-216451'}", 'total_tokens': 0}
 
 Now please ananlyze the insight and complete the task.
 There are some successful attempts in the history.
@@ -133,8 +133,8 @@ For example:
 
 
 
-2024-12-16 13:47:29,925 - actioner - ERROR - Action sequence error 0 time
-2024-12-16 13:47:29,951 - actioner - ERROR - Action sequence error 1 time
-2024-12-16 13:47:29,963 - actioner - ERROR - Action sequence error 2 time
-2024-12-16 13:47:29,971 - actioner - ERROR - Action sequence error 3 time
-2024-12-16 13:47:29,976 - actioner - ERROR - Action sequence error: {'role': 'assistant', 'content': "{'error': 'Model not supported', 'total_tokens': 0}"}
+2024-12-16 13:55:20,003 - actioner - ERROR - Action sequence error 0 time
+2024-12-16 13:55:20,834 - actioner - ERROR - Action sequence error 1 time
+2024-12-16 13:55:21,619 - actioner - ERROR - Action sequence error 2 time
+2024-12-16 13:55:22,398 - actioner - ERROR - Action sequence error 3 time
+2024-12-16 13:55:22,403 - actioner - ERROR - Action sequence error: {'role': 'assistant', 'content': '{\'error\': "Error code: 404 - {\'timestamp\': \'2024-12-16T05:55:21.191+00:00\', \'path\': \'/chat/completions\', \'status\': 404, \'error\': \'Not Found\', \'requestId\': \'efafcb8e-216547\'}", \'total_tokens\': 0}'}
